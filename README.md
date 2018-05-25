@@ -124,6 +124,12 @@ we use a standard representation for times (ISO8601). Rails handles the conversi
 of these string representations to and from PostgreSQL `tstzrange` values using
 the ActiveRecord Attributes API.
 
+### Application Level Constraints
+
+* Consider limiting cancellation.
+* Consider adopting a unit's timezone, check-in, and check-out time when creating a reservation.
+* Consider enforcing unit specific minimum and maximum stay intervals.
+
 ### Unit and Guest Management
 
 This app seems to imply that it also manages `Guest` and `Unit` information. If this
