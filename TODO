@@ -1,0 +1,8 @@
+## TODO
+
+[ ] Add seed data
+[ ] Validate presence of Reservation attribute "during"
+[ ] Implement Reservation resource GET, POST, PUT, DELETE
+[ ] Implement audit trail of user activity
+[ ] Determine why tests don't appear to check constraints
+[ ] Define Cucumber features
