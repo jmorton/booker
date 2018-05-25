@@ -13,4 +13,5 @@
 class Reservation < ApplicationRecord
   belongs_to :guest, required: true
   belongs_to :unit, required: true
+  validates :during, presence: true
 end
