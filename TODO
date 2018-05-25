@@ -1,6 +1,6 @@
 ## TODO
 
-[ ] Add seed data
+[x] Add seed data
 [ ] Validate presence of Reservation attribute "during"
 [ ] Implement Reservation resource GET, POST, PUT, DELETE
 [ ] Implement audit trail of user activity
