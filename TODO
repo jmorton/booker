@@ -1,8 +1,11 @@
 ## TODO
 
 [x] Add seed data
-[ ] Validate presence of Reservation attribute "during"
+[x] Validate presence of Reservation attribute "during"
+[x] Update README.md with setup info
+[ ] Handle conversion of ISO8601 to PostgreSQL tstzrange values
 [ ] Implement Reservation resource GET, POST, PUT, DELETE
-[ ] Implement audit trail of user activity
 [ ] Determine why tests don't appear to check constraints
-[ ] Define Cucumber features
+[ ] Implement audit trail of user activity
+[ ] Review Cucumber features
+[ ] Add query for available units in a location
