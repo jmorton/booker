@@ -21,9 +21,9 @@ class ReservationsController < ApplicationController
 
   # PUT /reservations
   #
-  def updated
-    @reservation = Reservation.update(reservation_params)
-    if @reservation.errors.empty?
+  def update
+    @reservation = Reservation.find(params[:id])
+    if @reservation.update(reservation_params)
       render json: {reservation: @reservation}, status: 200
     else
       render json: {reservation: @reservation, errors: @reservation.errors}, status: 400
@@ -49,6 +49,6 @@ class ReservationsController < ApplicationController
   def reservation_params
     params.require(:reservation).permit(:id, :guest_id, :unit_id, :start_at, :end_at)
   end
-  
+
 
 end

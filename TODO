@@ -3,9 +3,12 @@
 [x] Add seed data
 [x] Validate presence of Reservation attribute "during"
 [x] Update README.md with setup info
-[ ] Handle conversion of ISO8601 to PostgreSQL tstzrange values
-[ ] Implement Reservation resource GET, POST, PUT, DELETE
-[ ] Determine why tests don't appear to check constraints
+[x] Handle conversion of ISO8601 to PostgreSQL tstzrange values -- won't do.
+[x] Implement Reservation resource GET
+[x] Implement Reservation resource POST
+[x] Implement Reservation resource PUT
+[x] Implement Reservation resource DELETE
+[~] Determine why tests don't appear to check constraints
 [ ] Implement audit trail of user activity
-[ ] Review Cucumber features
 [ ] Add query for available units in a location
+[ ] Review Cucumber features

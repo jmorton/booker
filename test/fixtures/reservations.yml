@@ -1,0 +1,6 @@
+YOU_SF001:
+  id: 1
+  guest_id: 1
+  unit_id: 1
+  start_at: <%= 1.month.from_now %>
+  end_at: <%= (1.month+1.week).from_now %>
