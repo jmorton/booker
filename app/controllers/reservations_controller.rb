@@ -19,7 +19,7 @@ class ReservationsController < ApplicationController
     end
   end
 
-  # PUT /reservations
+  # PUT /reservations/:id
   #
   def update
     @reservation = Reservation.find(params[:id])
@@ -31,14 +31,14 @@ class ReservationsController < ApplicationController
   end
 
 
-  # DELETE /reservations
+  # DELETE /reservations/:id
   #
   def destroy
     @reservation = Reservation.find(params[:id])
     if @reservation.destroy
-      render json: @reservation, status: 204
+      render status: 204
     else
-      render json: @reservation, status: 400
+      render status: 400
     end
   end
 

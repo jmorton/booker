@@ -27,8 +27,6 @@ to fail. See "There Be Dragons" for more info.*
 
 ### REST API Sketch
 
-This is a tentative design (not yet implemented) for the REST API.
-
 
 ## Get a List of Available near a location during a time interval
 
@@ -36,35 +34,43 @@ This is a tentative design (not yet implemented) for the REST API.
   GET /units?where=San Francisco&when=2018-05-25P7D
 ```
 
+
 ## Create a Reservation
 
 ```
   POST /reservation
-  unit_id: SF01
-  guest_id: SG1314
-  when: 2018-05-25/2018-05-27
+  guest_id: 1
+  unit_id:  1
+  start:    2018-05-25
+  end:      2018-05-27
 ```
 
 This will create a reservation, if and only if the unit is not already reserved
 for an overlapping period of time.
 
+
 ## View a Reservation's Details
 
 ```
-  GET /reservation/:reservation_id
+  GET /reservation/:id
 ```
+
 
 ### Modify a Reservation
 
 ```
-  PUT /reservation/:reservation_id
-  when: 2018-05-26/2018-05-29
+  PUT /reservation/:id
+  guest_id: 1
+  unit_id:  2
+  start:    2018-05-26
+  end:      2018-05-29
 ```
+
 
 ### Cancel a Reservation
 
 ```
-  DELETE /reservation/:reservation_id
+  DELETE /reservation/:id
 ```
 
 ## Data Model
@@ -88,7 +94,6 @@ A place that can be occupied for various intervals of time by different guests.
 
 A time-interval exclusive relationship between guests and units. The guest, unit,
 and duration are required. PostgreSQL prevents conflicts with `EXCLUDE` constraints.
-
 
 ## There Be Dragons
 
@@ -152,3 +157,8 @@ to track discrete events. This keeps the complexity of the reservations table to
 while satisfying potential business needs to analyze patterns in change history or
 provide customers with transparency if there is confusion about the current state
 of reservations.
+
+## Test Data
+
+Once logic is defined to prevent reservations from being created in the past, time
+values for seed and test data will need to be checked.
