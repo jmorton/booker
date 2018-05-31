@@ -13,7 +13,7 @@ class ReservationConstraints < ActiveRecord::Migration[5.2]
     execute <<-SQL
       ALTER TABLE reservations
       ADD CONSTRAINT no_unit_during
-      EXCLUDE USING gist (unit_id WITH = , during WITH &&)
+      EXCLUDE USING gist ( unit_id WITH = , TSTZRANGE(start_at, end_at) WITH && )
     SQL
 
   end

@@ -32,8 +32,5 @@ module Booker
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
-    # This application uses constraints to enforce business logic as a last
-    # resort. Consequently, the schema must be provided as SQL.
-    # config.active_record.schema_format = :sql
   end
 end

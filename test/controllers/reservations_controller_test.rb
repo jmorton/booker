@@ -3,23 +3,34 @@ require 'test_helper'
 class ReservationsControllerTest < ActionDispatch::IntegrationTest
 
   test "create a single valid reservation" do
-    time_range = "2018-05-01/2018-05-05"
-    post "/reservations", params: { reservation: { guest_id: 1, unit_id: 1, during: time_range } }
-    assert_response :created
+    starts = "2018-05-01"
+    ends = "2018-05-05"
+    post "/reservations", params: { reservation: { guest_id: 1, unit_id: 1, start_at: starts, end_at: ends } }
+    assert_response :ok
   end
 
   test "create one valid and one conflicting reservation" do
-    time_range_1 = "2018-05-01/2018-05-05"
-    post "/reservations", params: { reservation: { guest_id: 1, unit_id: 1, during: time_range_1 } }
-    assert_response :created
-    time_range_2 = "2018-05-02/2018-05-06"
-    post "/reservations", params: { reservation: { guest_id: 1, unit_id: 1, during: time_range_2 } }
-    assert_response :conflict
+    starts = "2018-05-01"
+    ends = "2018-05-05"
+    post "/reservations", params: { reservation: { guest_id: 1, unit_id: 1, start_at: starts, end_at: ends } }
+    assert_response :ok
+    post "/reservations", params: { reservation: { guest_id: 1, unit_id: 1, start_at: starts, end_at: ends } }
+    assert_response :bad_request
+  end
+
+  test "create two reservations for different units at the same time" do
+    starts = "2018-05-01"
+    ends = "2018-05-05"
+    post "/reservations", params: { reservation: { guest_id: 1, unit_id: 1, start_at: starts, end_at: ends } }
+    assert_response :ok
+    post "/reservations", params: { reservation: { guest_id: 1, unit_id: 2, start_at: starts, end_at: ends } }
+    assert_response :ok
   end
 
   test "create an invalid (empty) reservation" do
-    post "/reservations", params: {}
-    assert_response :conflict
+    assert_raises ActionController::ParameterMissing do
+      post "/reservations", params: {}
+    end
   end
 
 end

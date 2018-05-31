@@ -25,12 +25,12 @@ ActiveRecord::Schema.define(version: 2018_05_25_085454) do
   create_table "reservations", force: :cascade do |t|
     t.bigint "unit_id", null: false
     t.bigint "guest_id", null: false
-    t.tstzrange "during", null: false
-    t.string "status"
+    t.datetime "start_at", null: false
+    t.datetime "end_at", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index "unit_id, tstzrange(start_at, end_at)", name: "no_unit_during", using: :gist
     t.index ["guest_id"], name: "index_reservations_on_guest_id"
-    t.index ["unit_id", "during"], name: "no_unit_during", using: :gist
     t.index ["unit_id"], name: "index_reservations_on_unit_id"
   end
 
