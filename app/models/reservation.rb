@@ -6,6 +6,8 @@
 
 class Reservation < ApplicationRecord
 
+  audited
+
   belongs_to :guest,   required: true
   belongs_to :unit,    required: true
 
