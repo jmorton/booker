@@ -3,8 +3,22 @@ require_relative '../config/environment'
 require 'rails/test_help'
 
 class ActiveSupport::TestCase
-  # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
+
+  # FIXTURES.
   fixtures :all
 
-  # Add more helper methods to be used by all tests here...
+  # GEOCODER.
+  Geocoder.configure(:lookup => :test)
+
+  Geocoder::Lookup::Test.set_default_stub([
+    {
+      'coordinates'  => [43.5499749, -96.700327],
+      'address'      => 'Sioux Falls, SD, USA',
+      'state'        => 'South Dakota',
+      'state_code'   => 'SD',
+      'country'      => 'United States',
+      'country_code' => 'US'
+    }
+  ])
+
 end

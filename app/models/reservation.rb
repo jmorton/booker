@@ -16,6 +16,11 @@ class Reservation < ApplicationRecord
 
   validate  :availability
 
+  def self.during(t1, t2)
+    self.where('tstzrange(reservations.start_at, reservations.end_at) && tstzrange(?, ?)', t1, t2)
+  end
+
+
   private
 
   # Detect other reservations for the same unit for an overlapping time. This

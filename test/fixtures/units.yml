@@ -1,6 +1,20 @@
 SF001:
   id: 1
+  name: "SF01"
+  address: "200 S Phillips Ave, Sioux Falls, SD 57104"
+  latitude: 43.5458516
+  longitude: -96.7266059
+
 SF002:
   id: 2
+  name: "SF02"
+  address: "332 S Phillips Ave, Sioux Falls, SD 57104"
+  latitude: 43.5436269
+  longitude: -96.7265842
+
 SF003:
   id: 3
+  name: "SF03"
+  address: "2101 W 41st St, Sioux Falls, SD 57105"
+  latitude: 43.5126624
+  longitude: -96.7532896

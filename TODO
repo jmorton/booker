@@ -10,5 +10,6 @@
 [x] Implement Reservation resource DELETE
 [~] Determine why tests don't appear to check constraints
 [x] Implement audit trail of user activity
+[x] Support location awareness to units
 [ ] Add query for available units in a location
 [ ] Review Cucumber features

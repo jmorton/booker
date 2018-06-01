@@ -29,6 +29,22 @@ class ReservationTest < ActiveSupport::TestCase
     assert r2.valid?
   end
 
+  test "two reservations for the same unit for two non-conflicting intervals, will work" do
+    r1 = Reservation.create({
+      unit: units(:SF001),
+      guest: guests(:HIM),
+      start_at: 1.weeks.from_now,
+      end_at: 2.weeks.from_now
+    })
+    r2 = Reservation.create({
+      unit: units(:SF001),
+      guest: guests(:HER),
+      start_at: 3.weeks.from_now,
+      end_at: 4.weeks.from_now
+    })
+    assert r1.valid?
+    assert r2.valid?
+  end
 
   test "two reservations for the same unit for two conflicting intervals, even by the same user, will not work" do
     assert_raises(ActiveRecord::StatementInvalid) do
@@ -62,21 +78,6 @@ class ReservationTest < ActiveSupport::TestCase
         end_at: 3.weeks.from_now
       })
     end
-  end
-
-  test "two reservations for the same unit for two non-conflicting intervals, will work" do
-    r1 = Reservation.create({
-      unit: units(:SF001),
-      guest: guests(:HIM),
-      start_at: 1.weeks.from_now,
-      end_at: 2.weeks.from_now
-    })
-    r2 = Reservation.create({
-      unit: units(:SF001),
-      guest: guests(:HER),
-      start_at: 3.weeks.from_now,
-      end_at: 4.weeks.from_now
-    })
   end
 
 end

@@ -2,6 +2,18 @@
 
 This app demonstrates a very simple reservation REST API implemented with Rails.
 
+## Configuration
+
+This app uses `.env` files to configure development and test environments. Create
+a copy like this:
+
+```
+cp .env .env.development
+```
+
+| Key             | Value                                                |
+| MY_CONTACT_INFO | Tells the free geocoding service who you are.        |
+
 ## Database
 
 This app uses PostgreSQL features to enforce data integrity; you will need to
@@ -16,26 +28,31 @@ rake db:create
 rake db:seed
 ```
 
+This will create three guests and three units.
+
+
+## Tests
+
 Tests are run like this:
 
 ```
 rake tests
 ```
 
-*Please note: there are  subtle issues that I'm still working on that causes tests
-to fail. See "There Be Dragons" for more info.*
 
-### REST API Sketch
+## REST API
 
 
-## Get a List of Available near a location during a time interval
+### Get a List of Available near a location during a time interval
 
 ```
-  GET /units?where=San Francisco&when=2018-05-25P7D
+  GET /units?where=Sioux Falls, SD&start_at=2018-07-01&end_at=2018-08-01
 ```
 
+This will retrieve a list of units that have no reservations during the given time.
 
-## Create a Reservation
+
+### Create a Reservation
 
 ```
   POST /reservation
@@ -49,7 +66,7 @@ This will create a reservation, if and only if the unit is not already reserved
 for an overlapping period of time.
 
 
-## View a Reservation's Details
+### View a Reservation's Details
 
 ```
   GET /reservation/:id
@@ -97,37 +114,12 @@ and duration are required. PostgreSQL prevents conflicts with `EXCLUDE` constrai
 
 ## There Be Dragons
 
-### Tests, Transactions, and Constraints
-
-The following code works as expected: the first reservation is created successfully
-and the second reservation fails to create a record (because the constraint is violated).
-
-However, the unit tests related to this fail; probably because of a subtle nuance
-about how constraints work within a transaction. (Setting constraints to "immediate"
-does not seem to help.)
-
-```
-her = Guest.create(name: "HER")
-him = Guest.create(name: "HIM")
-
-sf1 = Unit.create(name: "SF001")
-sf2 = Unit.create(name: "SF002")
-
-# Two overlapping time ranges.
-t1 = 2.days.from_now...5.days.from_now
-t2 = 4.days.from_now...7.days.from_now
-
-Reservation.create({unit: sf1, guest: her, during: t1}) # success
-Reservation.create({unit: sf1, guest: her, during: t2}) # fail
-```
-
 ### Time Zones, Check-In, Check-Out
 
 Different units are possibly located in different timezones; check-in and check-out
 times may vary and time to service a unit are required. In order to keep things simple,
 we use a standard representation for times (ISO8601). Rails handles the conversion
-of these string representations to and from PostgreSQL `tstzrange` values using
-the ActiveRecord Attributes API.
+of these string representations to and from PostgreSQL timestamp with timezone values.
 
 ### Application Level Constraints
 
