@@ -2,7 +2,9 @@
 
 This app demonstrates a very simple reservation REST API implemented with Rails.
 
-## Configuration
+## Setup
+
+### Environment Variables
 
 This app uses `.env` files to configure development and test environments. Create
 a copy like this:
@@ -11,10 +13,13 @@ a copy like this:
 cp .env .env.development
 ```
 
+Currently, there is only a single key/value.
+
 | Key             | Value                                                |
+|-----------------|------------------------------------------------------|
 | MY_CONTACT_INFO | Tells the free geocoding service who you are.        |
 
-## Database
+### Database
 
 This app uses PostgreSQL features to enforce data integrity; you will need to
 have PostgreSQL 9+ with PostGIS extensions available. The migrations handle
@@ -23,12 +28,10 @@ configuring the extensions for the schema.
 To setup a development environment, make sure PostgreSQL is up, and then run:
 
 ```
-rake db:migrate
-rake db:create
-rake db:seed
+rake db:setup
 ```
 
-This will create three guests and three units.
+This will create the DB, load the schema, and create three guests and three units.
 
 
 ## Tests
@@ -39,9 +42,17 @@ Tests are run like this:
 rake tests
 ```
 
+Features are documented (and tested) like this:
+
+```
+rake cucumber
+```
+
+Traditional tests are used to build up low level capabilities. Cucumber features
+are present so that business-type people can see how things are going at a high
+level.
 
 ## REST API
-
 
 ### Get a List of Available near a location during a time interval
 
@@ -83,6 +94,8 @@ for an overlapping period of time.
   end:      2018-05-29
 ```
 
+This will change a reservation; history is preserved in the `audits` table.
+
 
 ### Cancel a Reservation
 
@@ -90,14 +103,12 @@ for an overlapping period of time.
   DELETE /reservation/:id
 ```
 
+This will remove a reservation; history is preserved in the `audits` table.
+
+
 ## Data Model
 
-This API handles the problem of making sure a single guest can exclusively reserve
-a unit. At a high volume, Rails validations models are unable to avoid subtle race
-conditions that would lead to simultaneous booking. However, PostgreSQL *is* good
-at preventing this condition.
-
-## REST API Sketch
+The system exposes data about Guests, Units, and Reservations.
 
 ### Guest
 
@@ -107,50 +118,59 @@ Someone that wants to occupy a unit for a specific period of time.
 
 A place that can be occupied for various intervals of time by different guests.
 
+Units are geocoded whenever their address is changed in order to support location
+based queries.
+
 ### Reservation
 
-A time-interval exclusive relationship between guests and units. The guest, unit,
-and duration are required. PostgreSQL prevents conflicts with `EXCLUDE` constraints.
+A time-interval exclusive relationship between guests and units. A valid guest, unit,
+and duration are required.
+
+### Audits
+
+The system keeps old versions of entities to assist system operators with insight
+about what people are doing and to help resolve potential disputes.
+
 
 ## There Be Dragons
 
+This app started with a bit of a flurry, so it's important to keep track of some
+potential issues, even if they are a bit ambiguous...
+
 ### Time Zones, Check-In, Check-Out
 
-Different units are possibly located in different timezones; check-in and check-out
-times may vary and time to service a unit are required. In order to keep things simple,
-we use a standard representation for times (ISO8601). Rails handles the conversion
-of these string representations to and from PostgreSQL timestamp with timezone values.
+When reserving a Unit it will be important to figure out and enforce the actual
+times of day that a unit is reserved for a Guest. This time probably won't be
+user specified, and it definitely needs to take into account the timezone of the
+unit.
 
-### Application Level Constraints
+It might be wise to ignore any time value more granular than a day, provided by a
+user, relying instead on a property of each Unit to determine the start and end time.
 
-* Consider limiting cancellation.
-* Consider adopting a unit's timezone, check-in, and check-out time when creating a reservation.
-* Consider enforcing unit specific minimum and maximum stay intervals.
+### Reservation Constraints
 
-### Unit and Guest Management
+* Limit cancellation to a predefined time before the reservation begins.
+* Limit modification, especially after a reservation has finished.
+* Enforce minimum and maximum duration of a reservation. (e.g. 30-90 days)
 
-This app seems to imply that it also manages `Guest` and `Unit` information. If this
-were implemented as a micro-service, we probably wouldn't handle this data in the DB.
-Consequently, the foreign key constraints we have to ensure each reservation has
-a valid guest and unit wouldn't exist. Instead, this would be handled with
-`before_save` logic run in the `Reservation` model.
+### Permissions
 
-## Permissions
+This app does not enforce any permission about who can create, modify, or delete
+reservations.
 
-This app does not enforce any permission about who can create, modify, or delete reservations.
+Given that this is an API, we'll probably adopt a gem that supports JWT.
 
-If this API were exposed to 3rd parties, it would be best to follow REST API authentication
-and authorization patterns.
+### Auditing
 
-## Auditing
+This app preserves historical information in the `audits` table. I need to make
+sure that this can be a) extracted or b) queried by the appropriate users.
 
-In order to keep track of change history, it is probably best to use a separate table
-to track discrete events. This keeps the complexity of the reservations table to a minimum
-while satisfying potential business needs to analyze patterns in change history or
-provide customers with transparency if there is confusion about the current state
-of reservations.
+### Test Data
 
-## Test Data
+Test data is generated using Factory Bot. Fixtures can become quite unwieldy,
+so producing what is needed on-the-fly seems smart.
 
-Once logic is defined to prevent reservations from being created in the past, time
-values for seed and test data will need to be checked.
+
+## License
+
+(c) Jonathan Morton 2018 – MIT License
