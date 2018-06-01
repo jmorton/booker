@@ -2,41 +2,30 @@ require 'test_helper'
 
 class ReservationsControllerTest < ActionDispatch::IntegrationTest
 
-
-  def build(opts = {})
-    guest  = guests(:YOU)
-    unit   = units(:SF001)
-    starts = 2.weeks.from_now
-    ends   = 3.weeks.from_now
-    { guest_id: guest.id, unit_id: unit.id, start_at: starts, end_at: ends }.merge(opts)
-  end
-
-
   test "create a single valid reservation" do
-    post "/reservations", params: { reservation: build() }
+    reservation = build(:reservation)
+    post "/reservations", params: { reservation: reservation.as_json }
     assert_response :ok
   end
-
 
   test "create one valid and one conflicting reservation" do
-    post "/reservations", params: { reservation: build() }
+    unit = create(:unit)
+    r1 = build(:reservation, unit: unit)
+    r2 = build(:reservation, unit: unit)
+    post "/reservations", params: { reservation: r1.as_json }
     assert_response :ok
-    # This should be caught by Rails validation, but because tests are all  wrapped
-    # within a transaction, the conflicting data is isolated from other queries...
-    # ...I think. Consequently, the second reservation fails a constraint check
-    # and produces a 500 error (instead of a 400)
-    post "/reservations", params: { reservation: build() }
+    post "/reservations", params: { reservation: r2.as_json }
     assert_response 500
   end
 
-
   test "create two reservations for different units at the same time" do
-    post "/reservations", params: { reservation: build(unit_id: units(:SF001).id) }
+    r1 = build(:reservation)
+    r2 = build(:reservation)
+    post "/reservations", params: { reservation: r1.as_json }
     assert_response :ok
-    post "/reservations", params: { reservation: build(unit_id: units(:SF002).id) }
+    post "/reservations", params: { reservation: r2.as_json }
     assert_response :ok
   end
-
 
   test "create an invalid (empty) reservation" do
     assert_raises ActionController::ParameterMissing do
@@ -44,22 +33,22 @@ class ReservationsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-
   test "update a reservation (created with fixture data)" do
-    put "/reservations/1", params: {
+    r = create(:reservation)
+    put "/reservations/#{r.id}", params: {
       reservation: {
-        start: 4.weeks.from_now,
-        end: 5.weeks.from_now
+        start_at: 4.weeks.from_now,
+        end_at:   5.weeks.from_now
       }
     }
     assert_response :ok
   end
 
-
   test "cancel a reservation (created with fixture data)" do
-    delete "/reservations/1"
+    r = create(:reservation)
+    delete "/reservations/#{r.id}"
     assert_response :no_content
-    get "/reservations/1"
+    get "/reservations/#{r.id}"
     assert_response :not_found
   end
 

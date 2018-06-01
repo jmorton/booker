@@ -32,5 +32,12 @@ module Booker
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
+    # PostgreSQL specific types confuses a native Ruby format, dump SQL instead.
+    config.active_record.schema_format = :sql
+
+    # We use UTC as the default timezone to avoid confusion later.
+    config.time_zone = 'UTC'
+    config.active_record.default_timezone = :utc
+
   end
 end

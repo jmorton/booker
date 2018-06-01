@@ -1,11 +1,12 @@
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 require 'rails/test_help'
+require 'minitest/pride'
 
 class ActiveSupport::TestCase
 
-  # FIXTURES.
-  fixtures :all
+  # FACTORIES.
+  include FactoryBot::Syntax::Methods
 
   # GEOCODER.
   Geocoder.configure(:lookup => :test)
