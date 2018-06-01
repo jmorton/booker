@@ -7,7 +7,6 @@ class ReservationsController < ApplicationController
     render json: {reservation: @reservation}, status: 200
   end
 
-
   # POST /reservations
   #
   def create
@@ -30,7 +29,6 @@ class ReservationsController < ApplicationController
     end
   end
 
-
   # DELETE /reservations/:id
   #
   def destroy
@@ -42,13 +40,10 @@ class ReservationsController < ApplicationController
     end
   end
 
-
   private
-
 
   def reservation_params
     params.require(:reservation).permit(:id, :guest_id, :unit_id, :start_at, :end_at)
   end
-
 
 end

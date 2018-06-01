@@ -1,6 +1,5 @@
 class UnitsController < ApplicationController
 
-
   # GET /units?near=:place&start_at=:time&end_at=:time
   #
   def index
@@ -8,7 +7,6 @@ class UnitsController < ApplicationController
     @units = Unit.near(place).available(t1,t2).all
     render json: {units: @units}, status: 200
   end
-
 
   private
 
