@@ -43,6 +43,8 @@ group :development do
   # Rerun tests automatically
   gem 'guard'
   gem 'guard-minitest'
+  # Use Foreman for backing services
+  gem 'foreman'
 end
 
 group :test do
