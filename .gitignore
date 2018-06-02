@@ -19,6 +19,9 @@
 # Ignore uploaded files in development
 /storage/*
 
+# Ignore local PostgreSQL data
+db/pg/*
+
 .byebug_history
 
 # Ignore master key for decrypting credentials and more.

@@ -4,7 +4,15 @@ This app demonstrates a very simple reservation REST API implemented with Rails.
 
 ## Setup
 
-### Environment Variables
+There are five simple steps to setup a local development environment.
+
+### 1. Install Dependencies
+
+```
+bundle install --path=.bundler
+```
+
+### 2. Configure Environment Values
 
 This app uses `.env` files to configure development and test environments. Create
 a copy like this:
@@ -13,25 +21,27 @@ a copy like this:
 cp .env.example .env.development
 ```
 
-Currently, there is only a single key/value.
+### 3. Initialize PostgreSQL
 
-| Key             | Value                                                |
-|-----------------|------------------------------------------------------|
-| MY_CONTACT_INFO | Tells the free geocoding service who you are.        |
-
-### Database
-
-This app uses PostgreSQL features to enforce data integrity; you will need to
-have PostgreSQL 9+ with PostGIS extensions available. The migrations handle
-configuring the extensions for the schema.
-
-To setup a development environment, make sure PostgreSQL is up, and then run:
+If you aren't running PostgreSQL already, you can initialize an instance that will
+be stored in the project (but ignored by git).
 
 ```
-rake db:setup
+mkdir db/pg
+initdb --pgdata db/pg
 ```
 
-This will create the DB, load the schema, and create three guests and three units.
+### 4. Start Everything
+
+```
+bundle exec foreman start
+```
+
+### 5. Initialize Booker's Schema
+
+```
+bin/rails db:setup
+```
 
 
 ## Tests
