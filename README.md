@@ -10,7 +10,7 @@ This app uses `.env` files to configure development and test environments. Creat
 a copy like this:
 
 ```
-cp .env .env.development
+cp .env.example .env.development
 ```
 
 Currently, there is only a single key/value.
