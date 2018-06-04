@@ -1,0 +1,16 @@
+<h2>Units</h2>
+
+<h3>Search</h3>
+<%= form_with model: @search, url: units_path, method: :get, scope: nil do |f| %>
+<%= f.text_field :near %>
+<%= f.date_field :start_at %>
+<%= f.date_field :end_at %>
+<%= f.submit 'Search' %>
+<% end %>
+
+<h3>Results</h3>
+<ul>
+  <% for unit in @units do %>
+  <li><%= unit.address %></li>
+  <% end %>
+</ul>

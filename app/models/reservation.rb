@@ -19,6 +19,15 @@ class Reservation < ApplicationRecord
     self.where('tstzrange(reservations.start_at, reservations.end_at) && tstzrange(?, ?)', t1, t2)
   end
 
+  # A relation for getting or counting conflicting reservations for the same unit.
+  #
+  def conflicts
+    if self.new_record?
+      Reservation.where("unit_id = ? AND tstzrange(start_at, end_at) && tstzrange(?, ?)", unit_id, start_at, end_at)
+    else
+      Reservation.where("id <> ? AND unit_id = ? AND tstzrange(start_at, end_at) && tstzrange(?, ?)", id, unit_id, start_at, end_at)
+    end
+  end
 
   private
 
@@ -32,8 +41,9 @@ class Reservation < ApplicationRecord
     # We count other reservations for the same unit during a time interval,
     # but we ignore this reservation. If we didn't ignore this reservation,
     # the count would be either 0 (when creating) or a 1 (when updating).
-    if Reservation.where("id <> ? AND unit_id = ? AND tstzrange(start_at, end_at) && tstzrange(?, ?)", id, unit_id, start_at, end_at).count > 0
-      self.errors.add(:during, "unit not available for this time interval")
+    if self.conflicts.count > 0
+      self.errors.add(:start_at, "unit not available for given dates")
+      self.errors.add(:end_at, "unit not available for given dates")
     end
   end
 

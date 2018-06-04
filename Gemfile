@@ -27,6 +27,13 @@ gem 'audited', '~> 4.7'
 # Enable geocoding of units (and spatial querying)
 gem 'geocoder', '~> 1.4.9'
 
+# Authentication support
+gem 'omniauth', '~> 1.8.1'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-github'
+gem 'omniauth-twitter'
+gem 'omniauth-discord'
+
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
 

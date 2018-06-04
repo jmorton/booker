@@ -4,7 +4,7 @@ class ReservationsControllerTest < ActionDispatch::IntegrationTest
 
   test "create a single valid reservation" do
     reservation = build(:reservation)
-    post "/reservations", params: { reservation: reservation.as_json }
+    post "/reservations", params: reservation.as_json, as: :json
     assert_response :ok
   end
 
@@ -12,24 +12,25 @@ class ReservationsControllerTest < ActionDispatch::IntegrationTest
     unit = create(:unit)
     r1 = build(:reservation, unit: unit)
     r2 = build(:reservation, unit: unit)
-    post "/reservations", params: { reservation: r1.as_json }
+    post "/reservations", params: r1.as_json, as: :json
     assert_response :ok
-    post "/reservations", params: { reservation: r2.as_json }
-    assert_response 500
+    post "/reservations", params: r2.as_json, as: :json
+    result = JSON.parse(@response.body)
+    assert_response 400
   end
 
   test "create two reservations for different units at the same time" do
     r1 = build(:reservation)
     r2 = build(:reservation)
-    post "/reservations", params: { reservation: r1.as_json }
+    post "/reservations", params: r1.as_json, as: :json
     assert_response :ok
-    post "/reservations", params: { reservation: r2.as_json }
+    post "/reservations", params: r2.as_json, as: :json
     assert_response :ok
   end
 
   test "create an invalid (empty) reservation" do
     assert_raises ActionController::ParameterMissing do
-      post "/reservations", params: {}
+      post "/reservations", params: {}, as: :json
     end
   end
 
@@ -40,15 +41,15 @@ class ReservationsControllerTest < ActionDispatch::IntegrationTest
         start_at: 4.weeks.from_now,
         end_at:   5.weeks.from_now
       }
-    }
+    }, as: :json
     assert_response :ok
   end
 
   test "cancel a reservation (created with fixture data)" do
     r = create(:reservation)
-    delete "/reservations/#{r.id}"
+    delete "/reservations/#{r.id}", as: :json
     assert_response :no_content
-    get "/reservations/#{r.id}"
+    get "/reservations/#{r.id}", as: :json
     assert_response :not_found
   end
 

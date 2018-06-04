@@ -4,17 +4,33 @@ class ReservationsController < ApplicationController
   #
   def show
     @reservation = Reservation.find(params[:id])
-    render json: {reservation: @reservation}, status: 200
+    respond_to do |format|
+      format.html
+      format.json { render json: @reservation, status: 200 }
+    end
+  end
+
+  # GET /reservations/new
+  #
+  def new
+    @reservation = Reservation.new
+    respond_to do |format|
+      format.html
+    end
   end
 
   # POST /reservations
   #
   def create
-    @reservation = Reservation.create(reservation_params)
-    if @reservation.errors.empty?
-      render json: {reservation: @reservation}, status: 200
-    else
-      render json: {reservation: @reservation, errors: @reservation.errors}, status: 400
+    @reservation = Reservation.new(reservation_params)
+    respond_to do |format|
+      if @reservation.save
+        format.html
+        format.json { render json: @reservation, status: 200 }
+      else
+        format.html { render :new }
+        format.json { render json: {reservation: @reservation, errors: @reservation.errors}, status: 400 }
+      end
     end
   end
 
@@ -22,10 +38,14 @@ class ReservationsController < ApplicationController
   #
   def update
     @reservation = Reservation.find(params[:id])
-    if @reservation.update(reservation_params)
-      render json: {reservation: @reservation}, status: 200
-    else
-      render json: {reservation: @reservation, errors: @reservation.errors}, status: 400
+    respond_to do |format|
+      if @reservation.update(reservation_params)
+        format.html
+        format.json { render json: @reservation, status: 200 }
+      else
+        format.html
+        format.json { render json: {reservation: @reservation, errors: @reservation.errors}, status: 400 }
+      end
     end
   end
 
@@ -33,10 +53,12 @@ class ReservationsController < ApplicationController
   #
   def destroy
     @reservation = Reservation.find(params[:id])
-    if @reservation.destroy
-      render status: 204
-    else
-      render status: 400
+    respond_to do |format|
+      if @reservation.destroy
+        format.json { render json: nil, status: 204 }
+      else
+        format.json { render json: nil, status: 400 }
+      end
     end
   end
 

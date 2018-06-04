@@ -21,11 +21,10 @@ class ReservationTest < ActiveSupport::TestCase
     unit = create(:unit)
     her  = create(:guest, name: "Her")
     him  = create(:guest, name: "Him")
-    assert_raises(ActiveRecord::StatementInvalid) do
-      r1 = Reservation.create({guest: her, unit: unit, start_at: 3.days.from_now, end_at: 5.days.from_now})
-      r2 = Reservation.create({guest: him, unit: unit, start_at: 4.days.from_now, end_at: 6.days.from_now})
-      assert r1.valid?
-    end
+    r1 = Reservation.create({guest: her, unit: unit, start_at: 3.days.from_now, end_at: 5.days.from_now})
+    r2 = Reservation.create({guest: him, unit: unit, start_at: 4.days.from_now, end_at: 6.days.from_now})
+    assert r1.valid?
+    assert r2.invalid?
   end
 
 end
