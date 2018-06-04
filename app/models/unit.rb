@@ -21,13 +21,13 @@ class Unit < ApplicationRecord
 
   # A relation that selects units with reservations between times t1 and t2.
   #
-  def self.reserved(t1, t2)
-    where(id: Reservation.during(t1, t2).select(:unit_id))
+  def self.reserved(starts, ends)
+    where(id: Reservation.during(starts, ends).select(:unit_id))
   end
 
   # A relation that selects units without any reservations between times t1 and t2.
   #
-  def self.available(t1, t2)
-    where.not(id: Reservation.during(t1, t2).select(:unit_id))
+  def self.available(starts, ends)
+    where.not(id: Reservation.during(starts, ends).select(:unit_id))
   end
 end

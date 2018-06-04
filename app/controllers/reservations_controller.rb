@@ -2,7 +2,20 @@
 
 # Reservation resource handlers.
 #
+# TODO: Limit scope of reservations to those the current user is authorized
+#   to view or manage.
+#
 class ReservationsController < ApplicationController
+  # GET /reservations
+  #
+  def index
+    @reservations = Reservation.all
+    respond_to do |format|
+      format.html
+      format.json { render json: @reservations }
+    end
+  end
+
   # GET /reservations/:id
   #
   def show
@@ -17,6 +30,15 @@ class ReservationsController < ApplicationController
   #
   def new
     @reservation = Reservation.new
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  # GET /reservations/:id/edit
+  #
+  def edit
+    @reservation = Reservation.find(params[:id])
     respond_to do |format|
       format.html
     end
@@ -41,12 +63,13 @@ class ReservationsController < ApplicationController
   #
   def update
     @reservation = Reservation.find(params[:id])
+    @reservation.update(reservation_params)
     respond_to do |format|
-      if @reservation.update(reservation_params)
-        format.html
+      if @reservation.valid?
+        format.html { render :show, status: 200 }
         format.json { render json: @reservation, status: 200 }
       else
-        format.html
+        format.html { render :edit, status: 400 }
         format.json { render json: { reservation: @reservation, errors: @reservation.errors }, status: 400 }
       end
     end

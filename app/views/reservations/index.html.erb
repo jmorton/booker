@@ -1,0 +1,9 @@
+<h2>Reservations</h2>
+
+<content>
+  <ul>
+    <% for reservation in @reservations %>
+    <li><%= link_to reservation, reservation %></li>
+    <% end %>
+  </ul>
+</content>

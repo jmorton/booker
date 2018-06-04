@@ -13,17 +13,20 @@ class Reservation < ApplicationRecord
 
   # A relation for selecting reservations that overlap a timerange.
   #
-  def self.during(t1, t2)
-    where('tstzrange(reservations.start_at, reservations.end_at) && tstzrange(?, ?)', t1, t2)
+  def self.during(starts, ends)
+    query = 'tstzrange(reservations.start_at, reservations.end_at) && tstzrange(?, ?)'
+    where(query, starts, ends)
   end
 
   # A relation for getting or counting conflicting reservations for the same unit.
   #
   def conflicts
     if new_record?
-      Reservation.where('unit_id = ? AND tstzrange(start_at, end_at) && tstzrange(?, ?)', unit_id, start_at, end_at)
+      query = 'unit_id = ? AND tstzrange(start_at, end_at) && tstzrange(?, ?)'
+      Reservation.where(query, unit_id, start_at, end_at)
     else
-      Reservation.where('id <> ? AND unit_id = ? AND tstzrange(start_at, end_at) && tstzrange(?, ?)', id, unit_id, start_at, end_at)
+      query = 'id <> ? AND unit_id = ? AND tstzrange(start_at, end_at) && tstzrange(?, ?)'
+      Reservation.where(query, id, unit_id, start_at, end_at)
     end
   end
 
@@ -36,12 +39,7 @@ class Reservation < ApplicationRecord
   # constraint to enforce the exclusive reservation of a Unit.
   #
   def availability
-    # We count other reservations for the same unit during a time interval,
-    # but we ignore this reservation. If we didn't ignore this reservation,
-    # the count would be either 0 (when creating) or a 1 (when updating).
-    if conflicts.count > 0
-      errors.add(:start_at, 'unit not available for given dates')
-      errors.add(:end_at, 'unit not available for given dates')
-    end
+    return unless conflicts.count.positive?
+    errors.add(:start_at, 'unit not available for given dates')
   end
 end
