@@ -1,4 +1,7 @@
 language: ruby
 
+before_script:
+  - psql -c 'create database booker_test;' -U postgres
+
 services:
   - postgresql
