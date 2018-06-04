@@ -3,6 +3,8 @@
 # The parent class of all our application controllers.
 #
 class ApplicationController < ActionController::Base
+  protect_from_forgery
+
   rescue_from ::ActiveRecord::RecordNotFound, with: :record_not_found
 
   rescue_from ::ActiveRecord::StatementInvalid, with: :statement_invalid
