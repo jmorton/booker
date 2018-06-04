@@ -1,3 +1,5 @@
+# Session resource handlers.
+#
 class SessionController < ApplicationController
 
   # Skip the authenticity token to avoid problems with developer strategy.
@@ -7,9 +9,10 @@ class SessionController < ApplicationController
   # GET /session
   #
   def show
+    @session = session[:user]
     respond_to do |format|
-      format.json
       format.html
+      format.json { render json: @session }
     end
   end
 
@@ -25,20 +28,26 @@ class SessionController < ApplicationController
   #
   def create
     session[:user] = auth_hash
-    redirect_to home_path
+    respond_to do |format|
+      format.html { redirect_to home_path }
+      format.json { render json: @session, status: 201 }
+    end
   end
 
   # DELETE /session
   #
   def destroy
     session.delete(:user)
-    redirect_to login_path
+    respond_to do |format|
+      format.html { redirect_to login_path }
+      format.json { render json: nil, status: 200 }
+    end
   end
 
   protected
 
   def auth_hash
-    request.env['omniauth.auth'].values_at(:provider, :uid)
+    request.env['omniauth.auth'].slice('provider', 'uid')
   end
 
 end

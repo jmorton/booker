@@ -1,3 +1,5 @@
+# The parent class of all our application controllers.
+#
 class ApplicationController < ActionController::Base
 
   rescue_from ::ActiveRecord::RecordNotFound, with: :record_not_found

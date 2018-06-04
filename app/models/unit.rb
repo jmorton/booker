@@ -1,9 +1,6 @@
 # The Unit model represents a place that can be reserved by a Guest.
 #
-
 class Unit < ApplicationRecord
-
-  audited
 
   has_many :reservations
 

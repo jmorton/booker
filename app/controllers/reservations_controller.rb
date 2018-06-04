@@ -1,3 +1,5 @@
+# Reservation resource handlers.
+#
 class ReservationsController < ApplicationController
 
   # GET /reservations/:id

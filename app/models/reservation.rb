@@ -1,10 +1,7 @@
 # The Reservation model represents a time interval that a Unit is exclusively
 # reserved for a Guest.
 #
-
 class Reservation < ApplicationRecord
-
-  audited
 
   belongs_to :guest,   required: true
   belongs_to :unit,    required: true

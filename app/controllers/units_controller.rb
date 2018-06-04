@@ -1,3 +1,5 @@
+# Unit resource handlers.
+#
 class UnitsController < ApplicationController
 
   # GET /units?near=:place&start_at=:time&end_at=:time

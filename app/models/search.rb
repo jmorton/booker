@@ -2,7 +2,6 @@
 # it, the Unit model or controller becomes cluttered with parameter wrangling
 # that relates, but is quite different from, units themselves.
 #
-
 class Search
   include ActiveModel::Model
   include ActiveModel::Attributes
