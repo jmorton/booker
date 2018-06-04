@@ -52,6 +52,9 @@ group :development do
   gem 'guard-minitest'
   # Use Foreman for backing services
   gem 'foreman'
+  # DEVEX
+  gem 'pry-rails'
+  gem 'rubocop', require: false
 end
 
 group :test do
