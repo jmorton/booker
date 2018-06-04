@@ -1,15 +1,24 @@
 # BOOKER
 
-This app demonstrates a very simple reservation REST API implemented with Rails.
+[![build](https://travis-ci.org/jmorton/booker.svg?branch=master)](https://travis-ci.org/jmorton/booker)
+[![security](https://hakiri.io/github/jmorton/booker/master.svg)](https://hakiri.io/github/jmorton/booker/master)
+
+## Intro
+
+Booker is a Reservation system based on Rails 5. It's not used in the real-world
+for anything (as far as I know) but it should help you answer a variety of questions
+about how to build something similar. It's also a pretty good way for you to
+figure out if I actually know how to build things.
 
 ## Setup
 
-There are five simple steps to setup a local development environment.
+There are five steps to setup a local development environment. I assume you already
+have Ruby, Rails, and PostgreSQL installed.
 
 ### 1. Install Dependencies
 
 ```
-bundle install --path=.bundler
+bundle install
 ```
 
 ### 2. Configure Environment Values
