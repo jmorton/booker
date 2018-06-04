@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 # Unit resource handlers.
 #
 class UnitsController < ApplicationController
-
   # GET /units?near=:place&start_at=:time&end_at=:time
   #
   def index
@@ -29,5 +30,4 @@ class UnitsController < ApplicationController
   def search_params
     params.fetch(:search, {}).permit(:near, :start_at, :end_at)
   end
-
 end

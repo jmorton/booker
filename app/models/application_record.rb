@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Our (persisted) models inherit from ApplicationRecord.
 #
 # All persisted model changes are audited.

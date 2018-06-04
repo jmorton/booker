@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 # Session resource handlers.
 #
 class SessionController < ApplicationController
-
   # Skip the authenticity token to avoid problems with developer strategy.
   #
   skip_before_action :verify_authenticity_token, only: :create
@@ -49,5 +50,4 @@ class SessionController < ApplicationController
   def auth_hash
     request.env['omniauth.auth'].slice('provider', 'uid')
   end
-
 end

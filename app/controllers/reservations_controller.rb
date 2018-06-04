@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 # Reservation resource handlers.
 #
 class ReservationsController < ApplicationController
-
   # GET /reservations/:id
   #
   def show
@@ -31,7 +32,7 @@ class ReservationsController < ApplicationController
         format.json { render json: @reservation, status: 200 }
       else
         format.html { render :new }
-        format.json { render json: {reservation: @reservation, errors: @reservation.errors}, status: 400 }
+        format.json { render json: { reservation: @reservation, errors: @reservation.errors }, status: 400 }
       end
     end
   end
@@ -46,7 +47,7 @@ class ReservationsController < ApplicationController
         format.json { render json: @reservation, status: 200 }
       else
         format.html
-        format.json { render json: {reservation: @reservation, errors: @reservation.errors}, status: 400 }
+        format.json { render json: { reservation: @reservation, errors: @reservation.errors }, status: 400 }
       end
     end
   end
@@ -69,5 +70,4 @@ class ReservationsController < ApplicationController
   def reservation_params
     params.require(:reservation).permit(:id, :guest_id, :unit_id, :start_at, :end_at)
   end
-
 end
