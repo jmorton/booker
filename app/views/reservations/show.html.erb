@@ -2,7 +2,7 @@
 
 <content>
   <%= @reservation.guest.name %> reserved <%= @reservation.unit.address %>
-  from <%= @reservation.start_at %> to <%= @reservation.start_at %>.
+  from <%= l(@reservation.start_at) %> to <%= l(@reservation.start_at) %>.
 </content>
 
 <nav>
