@@ -1,8 +1,14 @@
+## Walk 03
+
+* [ ] TOPIC: React, Angular, Vue evaluation
+* [ ] TOPIC: Stronger Reservation Validation
+
 ## Walk 02
 
-* [ ] TOPIC: Unit Management
-* [ ] TOPIC: Stronger Reservation Validation
-* [ ] TOPIC: Authentication + Authorization
+* [x] TOPIC: Authentication
+* [x] TOPIC: UI
+* [x] TOPIC: Unit Management
+* [x] TOPIC: Authorization
 
 ## Walk 01
 

@@ -1,0 +1,13 @@
+<h2>List Reservations for Your Units</h2>
+
+<content>
+  <% if @reservations.present? %>
+    <ul>
+      <% for reservation in @reservations %>
+      <li><%= link_to reservation, [:owners, reservation] %></li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>None of your units have reservations.</p>
+  <% end %>
+</content>

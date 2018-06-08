@@ -3,21 +3,15 @@
 # The parent class of all our application controllers.
 #
 class ApplicationController < ActionController::Base
-  protect_from_forgery
+  protect_from_forgery with: :reset_session
+  include Exceptions
 
-  rescue_from ::ActiveRecord::RecordNotFound, with: :record_not_found
-
-  rescue_from ::ActiveRecord::StatementInvalid, with: :statement_invalid
-
-  private
-
-  def record_not_found(exception)
-    render json: { error: exception.message }, status: 404
-    nil
+  def pick
+    if session[:user].present?
+      redirect_to identity_path and return
+    else
+      redirect_to visitor_path and return
+    end
   end
 
-  def statement_invalid(exception)
-    render json: { error: exception.message }, status: 500
-    nil
-  end
 end

@@ -1,0 +1,12 @@
+<content>
+  <h2>Guest List Unit</h2>
+  <ul id="units">
+    <% for unit in @units %>
+      <li>
+        <%= unit.address %>
+        <%= link_to 'View', [:guests, unit] %>
+        <%= link_to 'Reserve', new_guests_reservation_path %>
+      </li>
+    <% end %>
+  </ul>
+</content>

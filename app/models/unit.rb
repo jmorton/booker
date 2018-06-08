@@ -3,6 +3,7 @@
 # The Unit model represents a place that can be reserved by a Guest.
 #
 class Unit < ApplicationRecord
+  belongs_to :owner
   has_many :reservations
 
   # Address is absolutely required and should be unique. Duplicate addresses

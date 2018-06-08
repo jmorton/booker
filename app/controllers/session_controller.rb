@@ -28,9 +28,9 @@ class SessionController < ApplicationController
   # GET /auth/:provider/callback
   #
   def create
-    session[:user] = auth_hash
+    session[:user] = Identity.authenticate(request.env['omniauth.auth']).id
     respond_to do |format|
-      format.html { redirect_to home_path }
+      format.html { redirect_to session.delete(:back_path) || root_path }
       format.json { render json: @session, status: 201 }
     end
   end
@@ -40,14 +40,8 @@ class SessionController < ApplicationController
   def destroy
     session.delete(:user)
     respond_to do |format|
-      format.html { redirect_to login_path }
+      format.html { redirect_to root_path }
       format.json { render json: nil, status: 200 }
     end
-  end
-
-  protected
-
-  def auth_hash
-    request.env['omniauth.auth'].slice('provider', 'uid')
   end
 end

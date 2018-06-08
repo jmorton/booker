@@ -102,7 +102,8 @@ CREATE TABLE public.guests (
     id bigint NOT NULL,
     name character varying,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    identity_id bigint
 );
 
 
@@ -123,6 +124,73 @@ CREATE SEQUENCE public.guests_id_seq
 --
 
 ALTER SEQUENCE public.guests_id_seq OWNED BY public.guests.id;
+
+
+--
+-- Name: identities; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.identities (
+    id bigint NOT NULL,
+    provider character varying NOT NULL,
+    uid character varying NOT NULL,
+    info jsonb,
+    credentials jsonb,
+    extra jsonb,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: identities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.identities_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: identities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.identities_id_seq OWNED BY public.identities.id;
+
+
+--
+-- Name: owners; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.owners (
+    id bigint NOT NULL,
+    name character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    identity_id bigint
+);
+
+
+--
+-- Name: owners_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.owners_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: owners_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.owners_id_seq OWNED BY public.owners.id;
 
 
 --
@@ -179,7 +247,8 @@ CREATE TABLE public.units (
     updated_at timestamp without time zone NOT NULL,
     address character varying,
     latitude double precision,
-    longitude double precision
+    longitude double precision,
+    owner_id bigint NOT NULL
 );
 
 
@@ -214,6 +283,20 @@ ALTER TABLE ONLY public.audits ALTER COLUMN id SET DEFAULT nextval('public.audit
 --
 
 ALTER TABLE ONLY public.guests ALTER COLUMN id SET DEFAULT nextval('public.guests_id_seq'::regclass);
+
+
+--
+-- Name: identities id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.identities ALTER COLUMN id SET DEFAULT nextval('public.identities_id_seq'::regclass);
+
+
+--
+-- Name: owners id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.owners ALTER COLUMN id SET DEFAULT nextval('public.owners_id_seq'::regclass);
 
 
 --
@@ -255,11 +338,27 @@ ALTER TABLE ONLY public.guests
 
 
 --
+-- Name: identities identities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.identities
+    ADD CONSTRAINT identities_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: reservations no_unit_during; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.reservations
     ADD CONSTRAINT no_unit_during EXCLUDE USING gist (unit_id WITH =, tstzrange(start_at, end_at) WITH &&);
+
+
+--
+-- Name: owners owners_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.owners
+    ADD CONSTRAINT owners_pkey PRIMARY KEY (id);
 
 
 --
@@ -315,6 +414,27 @@ CREATE INDEX index_audits_on_request_uuid ON public.audits USING btree (request_
 
 
 --
+-- Name: index_guests_on_identity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_guests_on_identity_id ON public.guests USING btree (identity_id);
+
+
+--
+-- Name: index_identities_on_provider_and_uid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_identities_on_provider_and_uid ON public.identities USING btree (provider, uid);
+
+
+--
+-- Name: index_owners_on_identity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_owners_on_identity_id ON public.owners USING btree (identity_id);
+
+
+--
 -- Name: index_reservations_on_guest_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -329,10 +449,33 @@ CREATE INDEX index_reservations_on_unit_id ON public.reservations USING btree (u
 
 
 --
+-- Name: index_units_on_owner_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_units_on_owner_id ON public.units USING btree (owner_id);
+
+
+--
 -- Name: user_index; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX user_index ON public.audits USING btree (user_id, user_type);
+
+
+--
+-- Name: owners fk_rails_448a1e372c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.owners
+    ADD CONSTRAINT fk_rails_448a1e372c FOREIGN KEY (identity_id) REFERENCES public.identities(id) ON DELETE SET NULL;
+
+
+--
+-- Name: guests fk_rails_687a114589; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.guests
+    ADD CONSTRAINT fk_rails_687a114589 FOREIGN KEY (identity_id) REFERENCES public.identities(id) ON DELETE SET NULL;
 
 
 --
@@ -363,6 +506,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180525051702'),
 ('20180525085454'),
 ('20180531195824'),
-('20180531201814');
+('20180531201814'),
+('20180605192433'),
+('20180605204808');
 
 

@@ -1,10 +1,22 @@
 FactoryBot.define do
 
+  factory :identity do
+    provider :developer
+    sequence(:uid) { |n| "uid_#{n}" }
+  end
+
   factory :guest do
-    sequence(:name) { |n| "guest_#{n}"}
+    association :identity
+    sequence(:name) { |n| "guest_#{n}" }
+  end
+
+  factory :owner do
+    association :identity
+    sequence(:name) { |n| "owner_#{n}" }
   end
 
   factory :unit do
+    association :owner
     sequence(:name)    { |n| "unit_#{n}" }
     sequence(:address) { |n| "400 S 4th Ave #{n}, Sioux Falls, SD 57104" }
     longitude -96.720761

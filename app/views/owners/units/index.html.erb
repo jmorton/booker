@@ -1,0 +1,20 @@
+<content>
+  <h2>List Units</h2>
+  <% if @units.present? %>
+    <ul>
+      <% for unit in @units %>
+        <li>
+          <%= unit.address %>
+          <%= link_to 'View', [:owners, unit] %>
+          <%= link_to 'Edit', [:edit, :owners, unit] %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>You've not created any units, yet.</p>
+  <% end %>
+</content>
+
+<nav>
+  <%= link_to "New Unit", new_owners_unit_path %>
+</nav>

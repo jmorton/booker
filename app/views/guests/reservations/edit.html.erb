@@ -1,0 +1,9 @@
+<content>
+  <h2>Edit Reservation</h2>
+  <%= form_for [:guests, @reservation] do |f| %>
+    <%= f.text_field :unit_id %>
+    <%= f.text_field :start_at %>
+    <%= f.text_field :end_at %>
+    <%= f.submit %>
+  <% end %>
+</content>

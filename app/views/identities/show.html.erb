@@ -1,0 +1,9 @@
+<h2>Hello, <%= identity&.uid %>.</h2>
+
+<h3>As an identified user, I can...</h3>
+<ul>
+  <li><%= link_to "Search for units to reserve", search_path %></li>
+  <li><%= link_to "Access guest features", guests_path %></li>
+  <li><%= link_to "Access owner features", owners_path %></li>
+  <li><%= link_to "Log out of Booker", logout_path %></li>
+</ul>

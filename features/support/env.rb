@@ -5,6 +5,7 @@
 # files.
 
 require 'cucumber/rails'
+require 'minitest/spec'
 
 begin
   DatabaseCleaner.strategy = :transaction
@@ -13,5 +14,3 @@ rescue NameError
 end
 
 Cucumber::Rails::Database.javascript_strategy = :truncation
-
-World(FactoryBot::Syntax::Methods)

@@ -1,9 +1,14 @@
 <html>
   <head>
-    <h1>Booker</h1>
+    <%= javascript_pack_tag 'application' %>
+    <%# stylesheet_pack_tag 'application' %>
+    <%= csrf_meta_tags %>
   </head>
   <body>
+    <h1>Booker</h1>
     <%= render 'shared/nav' %>
+    <%= render 'shared/flash' %>
+    <p>Hello, visitor.</p>
     <%= yield %>
   </body>
 </html>

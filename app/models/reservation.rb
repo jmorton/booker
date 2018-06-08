@@ -30,6 +30,10 @@ class Reservation < ApplicationRecord
     end
   end
 
+  def to_s
+    "Reservation No. #{id}"
+  end
+
   private
 
   # Detect other reservations for the same unit for an overlapping time. This

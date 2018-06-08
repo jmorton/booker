@@ -1,0 +1,22 @@
+<h2>Show Reservation for Your Unit</h2>
+
+<content>
+
+  <h2>Reservation</h2>
+
+  <h3>Address</h3>
+  <div data-attr="address"><%= @reservation.unit.address %></div>
+
+  <h3>Guest</h3>
+  <div data-attr="address"><%= @reservation.guest&.identity&.uid %></div>
+
+  <h3>Owner</h3>
+  <div data-attr="owner"><%= @reservation.unit.owner&.identity&.uid %></div>
+
+  <h3>Detail</h3>
+  <p>
+    <time data-attr="start_at"><%= l(@reservation.start_at) %></time> &mdash;
+    <time data-attr="end_at"><%= l(@reservation.end_at) %></time>
+  </p>
+
+</content>

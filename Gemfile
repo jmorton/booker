@@ -6,6 +6,8 @@ ruby '2.5.1'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.0'
 
+gem 'webpacker', '~> 3.5'
+
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 
@@ -27,6 +29,9 @@ gem 'audited', '~> 4.7'
 # Enable geocoding of units (and spatial querying)
 gem 'geocoder', '~> 1.4.9'
 
+# Natural language parsing of time
+gem 'chronic', '~> 0.10.2'
+
 # Authentication support
 gem 'omniauth', '~> 1.8.1'
 gem 'omniauth-google-oauth2'
@@ -35,7 +40,7 @@ gem 'omniauth-twitter'
 gem 'omniauth-discord'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
-# gem 'rack-cors'
+gem 'rack-cors'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -59,6 +64,7 @@ end
 
 group :test do
   gem 'cucumber-rails', require: false
+  gem 'rspec', '~> 3.7'
   gem 'database_cleaner'
   gem 'factory_bot_rails', '~> 4.0'
 end

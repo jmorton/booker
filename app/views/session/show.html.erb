@@ -1,4 +1,4 @@
 <content>
   <h2>Session</h2>
-  <%= debug(session[:user]) %>
+  <pre><%= debug(JSON.pretty_generate(@session.as_json)) %></pre>
 </content>

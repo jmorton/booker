@@ -1,0 +1,17 @@
+<content>
+  <h2>List Reservations</h2>
+  <% if @reservations.present? %>
+    <ul id="reservations">
+      <% for reservation in @reservations %>
+        <li data-type="reservation">
+          <%= reservation %>
+          <%= link_to 'View', guests_reservation_path(reservation) %>
+          <%= link_to 'Edit', edit_guests_reservation_path(reservation) %>
+          <%= link_to "Cancel", guests_reservation_path(reservation), method: :delete %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>You have no reservations.</p>
+  <% end %>
+</content>
