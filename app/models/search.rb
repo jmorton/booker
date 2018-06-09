@@ -38,8 +38,8 @@ class Search
   end
 
   def to_s
-    "searched near '%s' for units available during %s/%s" %
-    [near, start_at.to_date, end_at.to_date]
+    format "searched near '%<near>s' for units available during %<start_at>s/%<end_at>s",
+           near: near, start_at: start_at.to_date, end_at: end_at.to_date
   end
 
   private
@@ -47,7 +47,7 @@ class Search
   # Ensure the given times are in the future.
   #
   def subsequence
-    return if start_at.blank? or end_at.blank?
+    return if start_at.blank? || end_at.blank?
     return if (Time.now <= start_at) && (Time.now <= end_at)
     errors.add(:base, 'start time and end time must both be in the future')
   end
@@ -56,7 +56,7 @@ class Search
   #
   def duration
     # REVIEW: buried configuration? (1 day)
-    return if start_at.blank? or end_at.blank?
+    return if start_at.blank? || end_at.blank?
     return if (end_at - start_at) >= 1.day
     errors.add(:base, 'start and end difference must be one or more days')
   end

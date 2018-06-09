@@ -11,25 +11,25 @@ class Reservation < ApplicationRecord
   validates :end_at,   presence: true
   validate  :availability
 
-  scope :during, ->(starts, ends) {
+  scope :during, lambda { | starts, ends |
     query = 'tstzrange(reservations.start_at, reservations.end_at) && tstzrange(?, ?)'
     where(query, starts, ends)
   }
 
-  scope :before, -> {
+  scope :before, lambda {
     where('end_at < ?', Time.now)
   }
 
-  scope :now, -> {
+  scope :now, lambda {
     query = 'tstzrange(reservations.start_at, reservations.end_at) && tstzrange(?, ?)'
     where(query, Time.now, Time.now)
   }
 
-  scope :soon, -> {
+  scope :soon, lambda {
     where('start_at > ? and start_at < ?', Time.now, 1.month.from_now)
   }
 
-  scope :later, -> {
+  scope :later, lambda {
     where('start_at > ?', 1.month.from_now)
   }
 

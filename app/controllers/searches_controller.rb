@@ -3,11 +3,10 @@
 # Resource to help people find nearby available units.
 #
 class SearchesController < ApplicationController
-
   # GET /search
   #
   def show
-    @search = Search.new()
+    @search = Search.new
     respond_to do |format|
       format.html
     end

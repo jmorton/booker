@@ -8,10 +8,9 @@ class ApplicationController < ActionController::Base
 
   def pick
     if session[:user].present?
-      redirect_to identity_path and return
+      redirect_to(identity_path) && return
     else
-      redirect_to visitor_path and return
+      redirect_to(visitor_path) && return
     end
   end
-
 end
