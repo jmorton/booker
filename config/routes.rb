@@ -2,6 +2,8 @@ Rails.application.routes.draw do
 
   root 'application#pick'
 
+  get '/app', to: 'identities#app'
+
   resource :guests, path: 'guest' do
     resources :reservations, module: 'guests'
     resources :units, module: 'guests'

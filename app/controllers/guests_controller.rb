@@ -5,8 +5,6 @@
 class GuestsController < ApplicationController
   include Identification
 
-  layout 'guest'
-
   # GET /guest
   #
   def show

@@ -5,8 +5,6 @@
 class OwnersController < ApplicationController
   include Identification
 
-  layout 'owner'
-
   # GET /owner
   #
   def show
@@ -14,12 +12,6 @@ class OwnersController < ApplicationController
     respond_to do |format|
       format.html
     end
-  end
-
-  # GET /owner/app
-  #
-  def app
-    render layout: 'vue'
   end
 
   protected

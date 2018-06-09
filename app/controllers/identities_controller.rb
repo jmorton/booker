@@ -15,6 +15,12 @@ class IdentitiesController < ApplicationController
     end
   end
 
+  # GET /identity/app
+  #
+  def app
+    render layout: 'vue'
+  end
+
   # DELETE /identity
   #
   def destroy

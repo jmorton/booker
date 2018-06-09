@@ -38,3 +38,5 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   end
 
 end
+
+OmniAuth.config.form_css = ''
