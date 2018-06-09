@@ -40,11 +40,12 @@ module Owners
       @unit = owner_units.new(unit_params)
       respond_to do |format|
         if @unit.save
+          flash[:notice] = 'Unit created.'
           format.html { redirect_to [:owners, @unit] }
           format.json { render json: @unit, status: 200 }
         else
           format.html { render :new, status: 400 }
-          format.json { render json: @unit, status: 400 }
+          format.json { render json: { unit: @unit, errors: @unit.errors }, status: 400 }
         end
       end
     end
@@ -65,6 +66,7 @@ module Owners
       @unit.update(unit_params)
       respond_to do |format|
         if @unit.valid?
+          flash[:notice] = 'Unit updated.'
           format.html { render :show, status: 200 }
           format.json { render json: @unit, status: 200 }
         else

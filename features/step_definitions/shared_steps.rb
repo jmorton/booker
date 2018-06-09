@@ -14,6 +14,20 @@ When("I go to {string}") do |path|
   visit path
 end
 
+When("I click {string}") do |value|
+  page.find(:link_or_button, value).click
+end
+
+When("I enter this form:") do |table|
+  table.rows_hash.each do |key, value|
+    page.fill_in key, with: value
+  end
+end
+
+Then("I see {string}") do |value|
+  expect(page).to have_content(value)
+end
+
 Then("I see a/an/the error {string}") do |text|
   within('.errors') do
     expect(page).to have_content(text)
@@ -39,4 +53,8 @@ Then("I see exactly {int} {string}") do |quantity, thing|
   within('content') do
     expect(page).to have_selector("[data-type=#{name}]", count: quantity)
   end
+end
+
+Then("dump the page") do
+  puts page.body
 end

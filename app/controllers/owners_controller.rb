@@ -16,6 +16,12 @@ class OwnersController < ApplicationController
     end
   end
 
+  # GET /owner/app
+  #
+  def app
+    render layout: 'vue'
+  end
+
   protected
 
   helper_method :owner

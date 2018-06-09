@@ -1,5 +1,6 @@
-<content class="reservation">
-  <h2>Show Reservation</h2>
+<content class="reservation show">
+  
+  <h2><%= @reservation.to_s %></h2>
 
   <h3>Address</h3>
   <div data-attr="address"><%= @reservation.unit.address %></div>
@@ -16,9 +17,9 @@
     <time data-attr="end_at"><%= l(@reservation.end_at) %></time>
   </p>
 
-</content>
+  <nav>
+    <%= link_to "Edit", edit_guests_reservation_path(@reservation), data: { action: :edit } %>
+    <%= link_to "Cancel", guests_reservation_path(@reservation), data: { action: :cancel, confirm: "Are you sure?", method: :delete } %>
+  </nav>
 
-<nav>
-  <%= link_to "Edit", edit_guests_reservation_path(@reservation) %>
-  <%= link_to "Cancel", guests_reservation_path(@reservation), method: :delete %>
-</nav>
+</content>

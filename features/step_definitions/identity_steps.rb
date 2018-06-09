@@ -20,11 +20,3 @@ end
 Then("I have to login") do
   expect(page).to have_content('Please sign in to continue.')
 end
-
-Then("I can use guest features") do
-  expect(page).to have_content('Access guest features')
-end
-
-Then("I can use owner features") do
-  expect(page).to have_content('Access owner features')
-end

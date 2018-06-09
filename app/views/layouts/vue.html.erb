@@ -1,0 +1,11 @@
+<html>
+  <head>
+    <%= javascript_pack_tag 'application' %>
+    <%= yield :js %>
+    <%# stylesheet_pack_tag 'application' %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <%= yield %>
+  </body>
+</html>

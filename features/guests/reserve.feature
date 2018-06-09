@@ -1,6 +1,6 @@
 Feature: Reserve a unit
 
-  As a guest I can manage my own reservations
+  As a Guest I can manage my own reservations
   So that I have somewhere to stay later.
 
   Background:
@@ -35,14 +35,16 @@ Feature: Reserve a unit
   Scenario: Cancelling a reservation
     Given I reserved 2 units
       And I go to '/guest/reservations'
-      And I follow the link to cancel a reservation
+      And I follow the link to reservation details
+      And I click the cancel link
      Then I see exactly 1 'reservation'
       And I see the message 'Reservation cancelled.'
 
   Scenario: Updating a reservation
      Given I reserved 2 units
       When I go to '/guest/reservations'
-       And I follow the link to update a reservation
+       And I follow the link to reservation details
+       And I click the edit link
        And I extend my reservation by 1 day
        And I update the reservation
       Then I see details about the reservation

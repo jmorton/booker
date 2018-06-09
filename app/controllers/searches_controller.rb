@@ -9,7 +9,7 @@ class SearchesController < ApplicationController
   def show
     @search = Search.new()
     respond_to do |format|
-      format.html { render :new }
+      format.html
     end
   end
 

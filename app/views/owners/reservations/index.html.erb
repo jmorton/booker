@@ -1,13 +1,22 @@
-<h2>List Reservations for Your Units</h2>
-
 <content>
-  <% if @reservations.present? %>
-    <ul>
-      <% for reservation in @reservations %>
-      <li><%= link_to reservation, [:owners, reservation] %></li>
-      <% end %>
-    </ul>
-  <% else %>
-    <p>None of your units have reservations.</p>
+
+  <% if @owner.reservations.none? %>
+    <p>There are no reservations for your units.</p>
   <% end %>
+
+  <% if @owner.reservations.now.present? %>
+    <h3>Happening Now</h3>
+    <%= render partial: 'owners/reservations/reservation', collection: @owner.reservations.now %>
+  <% end %>
+
+  <% if @owner.reservations.soon.present? %>
+    <h3>Happening Soon</h3>
+    <%= render partial: 'owners/reservations/reservation', collection: @owner.reservations.soon %>
+  <% end %>
+
+  <% if @owner.reservations.later.present? %>
+    <h3>Happening Later</h3>
+    <%= render partial: 'owners/reservations/reservation', collection: @owner.reservations.later %>
+  <% end %>
+
 </content>

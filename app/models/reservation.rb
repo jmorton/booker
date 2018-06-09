@@ -11,12 +11,27 @@ class Reservation < ApplicationRecord
   validates :end_at,   presence: true
   validate  :availability
 
-  # A relation for selecting reservations that overlap a timerange.
-  #
-  def self.during(starts, ends)
+  scope :during, ->(starts, ends) {
     query = 'tstzrange(reservations.start_at, reservations.end_at) && tstzrange(?, ?)'
     where(query, starts, ends)
-  end
+  }
+
+  scope :before, -> {
+    where('end_at < ?', Time.now)
+  }
+
+  scope :now, -> {
+    query = 'tstzrange(reservations.start_at, reservations.end_at) && tstzrange(?, ?)'
+    where(query, Time.now, Time.now)
+  }
+
+  scope :soon, -> {
+    where('start_at > ? and start_at < ?', Time.now, 1.month.from_now)
+  }
+
+  scope :later, -> {
+    where('start_at > ?', 1.month.from_now)
+  }
 
   # A relation for getting or counting conflicting reservations for the same unit.
   #

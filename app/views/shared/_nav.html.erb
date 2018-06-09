@@ -1,11 +1,6 @@
 <nav>
-  <%= link_to 'Home', root_path %>
-  <%= link_to 'Search', search_path %>
-  <% if session[:user].present? %>
-    <%= link_to 'As Guest', guests_path %>
-    <%= link_to 'As Owner', owners_path %>
-    <%= link_to 'Logout', logout_path %>
-  <% else %>
-    <%= link_to 'Login', login_path %>
-  <% end %>
+  <%= link_to 'Search',   search_path %>
+  <%= link_to 'Guest',    guests_path %>
+  <%= link_to 'Owner',    owners_path %>
+  <%= link_to 'Leave',    logout_path if session[:user].present? %>
 </nav>

@@ -3,6 +3,8 @@
 # Session resource handlers.
 #
 class SessionController < ApplicationController
+  layout 'application'
+  
   # Skip the authenticity token to avoid problems with developer strategy.
   #
   skip_before_action :verify_authenticity_token, only: :create

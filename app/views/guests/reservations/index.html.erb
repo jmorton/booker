@@ -1,17 +1,22 @@
-<content>
-  <h2>List Reservations</h2>
-  <% if @reservations.present? %>
-    <ul id="reservations">
-      <% for reservation in @reservations %>
-        <li data-type="reservation">
-          <%= reservation %>
-          <%= link_to 'View', guests_reservation_path(reservation) %>
-          <%= link_to 'Edit', edit_guests_reservation_path(reservation) %>
-          <%= link_to "Cancel", guests_reservation_path(reservation), method: :delete %>
-        </li>
-      <% end %>
-    </ul>
-  <% else %>
+<content id="reservations">
+
+  <% if @guest.reservations.none? %>
     <p>You have no reservations.</p>
   <% end %>
+
+  <% if @guest.reservations.now.present? %>
+    <h3>Happening Now</h3>
+    <%= render partial: 'guests/reservations/reservation', collection: @guest.reservations.now %>
+  <% end %>
+
+  <% if @guest.reservations.soon.present? %>
+    <h3>Happening Soon</h3>
+    <%= render partial: 'guests/reservations/reservation', collection: @guest.reservations.soon %>
+  <% end %>
+
+  <% if @guest.reservations.later.present? %>
+    <h3>Happening Later</h3>
+    <%= render partial: 'guests/reservations/reservation', collection: @guest.reservations.later %>
+  <% end %>
+
 </content>

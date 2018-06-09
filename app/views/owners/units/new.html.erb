@@ -1,7 +1,7 @@
 <content>
-  <h2>New Unit</h2>
   <%= form_for [:owners, @unit] do |f| %>
-    <%= f.text_field :address %>
+    <%= render 'shared/errors', object: @unit %>
+    <div><%= f.text_field :address, placeholder: 'address' %></div>
     <%= f.submit %>
   <% end %>
 </content>

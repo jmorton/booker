@@ -6,26 +6,14 @@ Given("I reserved {int} units") do |amount|
   step 'I reserve another available unit'
 end
 
-When("I create a/the reservation") do
-  page.click_button 'Create Reservation'
-end
-
 When("I reserve an/another available unit") do
   step 'I search for an available unit'
   step 'I pick a unit'
-  step 'I create a reservation'
+  step 'I create the reservation'
 end
 
 When("I follow the link to reservation details") do
-  within('#reservations li:first') do
-    page.click_link 'View'
-  end
-end
-
-When("I follow the link to update a reservation") do
-  within('#reservations li:first') do
-    page.click_link 'Edit'
-  end
+  find('#reservations div:nth(1) a').click
 end
 
 When("I extend my reservation by {int} day(s)") do |amount|
@@ -34,14 +22,20 @@ When("I extend my reservation by {int} day(s)") do |amount|
   page.fill_in 'reservation[end_at]', with: updated
 end
 
+When("I create the reservation") do
+  page.click_button 'Create Reservation'
+end
+
 When("I update the reservation") do
   page.click_button 'Update Reservation'
 end
 
-When("I follow the link to cancel a reservation") do
-  within('#reservations li:first') do
-    page.click_link 'Cancel'
-  end
+When("I click the edit link") do
+  page.click_link 'Edit'
+end
+
+When("I click the cancel link") do
+  page.click_link 'Cancel'
 end
 
 Then("I see details about the reservation") do

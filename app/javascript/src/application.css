@@ -1,0 +1,25 @@
+body {
+  background-color: #eee;
+  font-family: monospace;
+  font-size: 18px;
+  margin: 40px;
+}
+
+input {
+  font-family: monospace;
+  font-size: 18px;
+  margin: 4px 0 5px 0;
+  padding: 9px;
+  border: 1px solid #666;
+  background-color: #fff;
+}
+
+nav {
+  font-weight: bold;
+  margin: 4px 0 5px 0;
+}
+
+ol, ul, li, p {
+  padding: 3px 0 4px 0;
+  margin: 0;
+}
