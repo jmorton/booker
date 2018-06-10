@@ -1,22 +1,16 @@
 <template>
-  <div id="app">
-    <p>{{ message }}</p>
-  </div>
+  <p>MSG: {{ howdy }}</p>
 </template>
 
 <script>
 export default {
   data: function () {
     return {
-      message: "Hello Vue!"
+      howdy: "Hello Vueness!"
     }
   }
 }
 </script>
 
 <style scoped>
-p {
-  font-size: 2em;
-  text-align: center;
-}
 </style>
