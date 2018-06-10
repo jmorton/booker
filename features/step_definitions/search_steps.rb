@@ -2,9 +2,9 @@ When("I search for units near {string} available {string}") do |location, date|
   step 'I go to "/search"'
   start_at = Chronic.parse(date)
   end_at = start_at + 1.day
-  page.fill_in 'search[near]',     with: location
-  page.fill_in 'search[start_at]', with: start_at.iso8601
-  page.fill_in 'search[end_at]',   with: end_at.iso8601
+  page.fill_in 'near',     with: location
+  page.fill_in 'start_at', with: start_at.iso8601
+  page.fill_in 'end_at',   with: end_at.iso8601
   page.click_button 'Search'
 end
 
@@ -19,9 +19,9 @@ When("I pick a unit") do
 end
 
 Then("I see a search form") do
-  expect(page).to have_field('search[near]')
-  expect(page).to have_field('search[start_at]')
-  expect(page).to have_field('search[end_at]')
+  expect(page).to have_field('near')
+  expect(page).to have_field('start_at')
+  expect(page).to have_field('end_at')
 end
 
 Then("I see {int} units") do |amount|

@@ -1,4 +1,4 @@
 <li>
-  <%= link_to unit.address, guests_unit_path(unit) %>
-  <%= link_to "reserve", new_guests_reservation_path(reservation: {unit_id: unit, start_at: @search.start_at, end_at: @search.end_at }) %>
+  <%= link_to unit.address, guest_unit_path(unit) %>
+  <%= link_to "reserve", new_guest_reservation_path(reservation: {unit_id: unit, start_at: @search.start_at, end_at: @search.end_at }) %>
 </li>

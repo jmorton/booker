@@ -1,7 +1,7 @@
 <content class="reservation editor">
   <h2>New Reservation</h2>
   <%= render 'shared/errors', object: @reservation %>
-  <%= form_for [:guests, @reservation] do |f| %>
+  <%= form_for [:guest, @reservation], local: true do |f| %>
     <%= f.hidden_field :unit_id %>
     <p><%= @reservation&.unit&.address %></>
     <div><%= f.date_field :start_at %></div>

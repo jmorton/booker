@@ -1,5 +1,5 @@
 <content>
-  <%= form_for [:owners, @unit] do |f| %>
+  <%= form_for [:owner, @unit] do |f| %>
     <%= render 'shared/errors', object: @unit %>
     <%= f.text_field :address %>
     <%= f.submit %>

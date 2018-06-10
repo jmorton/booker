@@ -18,8 +18,8 @@
   </p>
 
   <nav>
-    <%= link_to "Edit", edit_guests_reservation_path(@reservation), data: { action: :edit } %>
-    <%= link_to "Cancel", guests_reservation_path(@reservation), data: { action: :cancel, confirm: "Are you sure?", method: :delete } %>
+    <%= link_to "Edit", edit_guest_reservation_path(@reservation), data: { action: :edit } %>
+    <%= link_to "Cancel", guest_reservation_path(@reservation), data: { action: :cancel, confirm: "Are you sure?", method: :delete } %>
   </nav>
 
 </content>

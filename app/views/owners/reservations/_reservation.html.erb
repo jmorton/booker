@@ -1,5 +1,5 @@
 <div>
-  <h4><%= link_to reservation.to_s, owners_reservation_path(reservation) %></h4>
+  <h4><%= link_to reservation.to_s, owner_reservation_path(reservation) %></h4>
   <time data-attr="start_at"><%= l(reservation.start_at) %></time> &mdash;
   <time data-attr="end_at"><%= l(reservation.end_at) %></time>
   <p><%= reservation.unit.address %></p>

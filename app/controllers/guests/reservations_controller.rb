@@ -49,7 +49,7 @@ module Guests
       respond_to do |format|
         if @reservation.save
           flash[:notice] = 'Reservation created.'
-          format.html { redirect_to [:guests, @reservation] }
+          format.html { redirect_to guest_reservation_path(@reservation) }
           format.json { render json: @reservation, status: 200 }
         else
           format.html { render :new }
@@ -82,7 +82,7 @@ module Guests
       respond_to do |format|
         if @reservation.destroy
           flash[:notice] = 'Reservation cancelled.'
-          format.html { redirect_to guests_reservations_path }
+          format.html { redirect_to guest_reservations_path }
           format.json { render status: 204 }
         else
           format.html { redirect_to :back }

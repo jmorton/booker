@@ -41,7 +41,7 @@ module Owners
       respond_to do |format|
         if @unit.save
           flash[:notice] = 'Unit created.'
-          format.html { redirect_to [:owners, @unit] }
+          format.html { redirect_to owner_unit_path(@unit) }
           format.json { render json: @unit, status: 200 }
         else
           format.html { render :new, status: 400 }

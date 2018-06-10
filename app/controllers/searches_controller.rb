@@ -3,31 +3,29 @@
 # Resource to help people find nearby available units.
 #
 class SearchesController < ApplicationController
+
   # GET /search
   #
   def show
-    @search = Search.new
+    @search = search_model
     respond_to do |format|
-      format.html
+      if search_params.present? and @search.invalid?
+        format.html { render status: 400 }
+        format.json { render json: @search.errors, status: 400 }
+      else
+        format.html { render status: 200 }
+        format.json { render json: @search.results, status: 200 }
+      end
     end
   end
-
-  # GET /search/new?near=:place&start_at=:time&end_at=:time
-  #
-  def new
-    @search = Search.new(search_params)
-    @units = @search.results.all if search_params.present? && @search.valid?
-    respond_to do |format|
-      format.html
-      format.json { render json: @units, status: 200 }
-    end
-  end
-
-  helper_method :search_params
 
   protected
 
   def search_params
-    params.fetch(:search, {}).permit(:near, :start_at, :end_at)
+    params.permit(:near, :start_at, :end_at)
+  end
+
+  def search_model
+    Search.new(search_params)
   end
 end

@@ -2,25 +2,23 @@ Rails.application.routes.draw do
 
   root 'application#pick'
 
-  get '/app', to: 'identities#app'
-
-  resource :guests, path: 'guest' do
+  resource :guest do
     resources :reservations, module: 'guests'
-    resources :units, module: 'guests'
+    resources :units, module: 'guests', only: ['index', 'show']
   end
 
-  resource :owners, path: 'owner' do
-    resources :reservations, module: 'owners'
+  resource :owner do
+    resources :reservations, module: 'owners', only: ['index', 'show']
     resources :units, module: 'owners'
   end
 
-  resource  :identity
-  resource  :search
-  resource  :visitor
+  resource  :search,   only: 'show'
+  resource  :identity, only: 'show'
+  resource  :visitor,  only: 'show'
 
   get '/login',   to: 'session#new', as: 'login'
   get '/logout',  to: 'session#destroy', as: 'logout'
   get '/auth/:provider/callback', to: 'session#create'
-  match '/auth/:provider/callback', to: 'session#create', via: ['get','post']
+  match '/auth/:provider/callback', to: 'session#create', via: ['get', 'post']
 
 end

@@ -1,0 +1,11 @@
+<div id="results">
+  <% if search.valid? %>
+    <% if search.results.present? %>
+      <ul>
+        <%= render partial: 'unit', collection: search.results %>
+      </ul>
+    <% else %>
+      <p>Sorry, nothing seems to be available.</p>
+    <% end %>
+  <% end %>
+</div>

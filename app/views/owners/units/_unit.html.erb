@@ -1,5 +1,5 @@
 <div data-type="unit">
   <%= unit.address %>
-  <%= link_to 'View', [:owners, unit] %>
-  <%= link_to 'Edit', [:edit, :owners, unit] %>
+  <%= link_to 'View', owner_unit_path(unit) %>
+  <%= link_to 'Edit', edit_owner_unit_path(unit) %>
 </div>
