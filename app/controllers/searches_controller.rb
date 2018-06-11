@@ -9,10 +9,12 @@ class SearchesController < ApplicationController
   def show
     @search = search_model
     respond_to do |format|
-      if search_params.present? and @search.invalid?
+      if search_params.present? && @search.invalid?
+        format.js   { render status: 400 }
         format.html { render status: 400 }
         format.json { render json: @search.errors, status: 400 }
       else
+        format.js   { render status: 200 }
         format.html { render status: 200 }
         format.json { render json: @search.results, status: 200 }
       end

@@ -9,3 +9,4 @@ import Turbolinks from 'turbolinks';
 Turbolinks.start();
 
 import '../src/log.js';
+import '../src/ajax.js';
