@@ -2,8 +2,9 @@
   <h2>New Unit</h2>
   <%= form_for [:owner, @unit] do |f| %>
     <div><%= render 'shared/errors', object: @unit %></div>
-    <div><%= f.text_field :address, placeholder: 'address' %></div>
-    <div><%= f.file_field :images, multiple: true, direct_upload: true %></div>
-    <div><%= f.submit %></div>
-  <% end %>
+    <div><%= f.text_field :address %></div>
+    <div><%= f.text_field :check_in %></div>
+    <div><%= f.text_field :check_out %></div>
+    <div><%= f.time_zone_select :local_tz, ActiveSupport::TimeZone.us_zones %></div>
+    <div><%= f.submit %></div>  <% end %>
 </content>

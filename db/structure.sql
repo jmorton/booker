@@ -36,6 +36,20 @@ CREATE EXTENSION IF NOT EXISTS btree_gist WITH SCHEMA public;
 COMMENT ON EXTENSION btree_gist IS 'support for indexing common datatypes in GiST';
 
 
+--
+-- Name: citext; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS citext WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION citext; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION citext IS 'data type for case-insensitive character strings';
+
+
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -316,7 +330,9 @@ CREATE TABLE public.units (
     address character varying,
     latitude double precision,
     longitude double precision,
-    owner_id bigint NOT NULL
+    owner_id bigint NOT NULL,
+    location jsonb DEFAULT '{}'::jsonb NOT NULL,
+    detail jsonb DEFAULT '{}'::jsonb NOT NULL
 );
 
 
@@ -568,6 +584,20 @@ CREATE INDEX index_reservations_on_unit_id ON public.reservations USING btree (u
 
 
 --
+-- Name: index_units_on_detail; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_units_on_detail ON public.units USING gin (detail);
+
+
+--
+-- Name: index_units_on_location; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_units_on_location ON public.units USING gin (location);
+
+
+--
 -- Name: index_units_on_owner_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -628,6 +658,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180531201814'),
 ('20180605192433'),
 ('20180605204808'),
-('20180611144236');
+('20180611144236'),
+('20180612030208');
 
 

@@ -84,7 +84,7 @@ module Owners
     end
 
     def unit_params
-      params.fetch(:unit, {}).permit(:id, :address, images: [])
+      params.fetch(:unit, {}).permit(:id, :address, :check_in, :check_out, :local_tz, images: [])
     end
 
   end

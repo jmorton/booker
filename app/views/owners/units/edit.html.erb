@@ -5,6 +5,9 @@
   <%= form_for [:owner, @unit] do |f| %>
     <div><%= render 'shared/errors', object: @unit %></div>
     <div><%= f.text_field :address %></div>
+    <div><%= f.text_field :check_in %></div>
+    <div><%= f.text_field :check_out %></div>
+    <div><%= f.time_zone_select :local_tz, ActiveSupport::TimeZone.us_zones %></div>
     <div><%= f.submit %></div>
   <% end %>
 
