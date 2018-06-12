@@ -37,11 +37,6 @@ class Search
     Unit.near(near).available(start_at, end_at) if valid?
   end
 
-  def to_s
-    format "searched near '%<near>s' for units available during %<start_at>s/%<end_at>s",
-           near: near, start_at: start_at.to_date, end_at: end_at.to_date
-  end
-
   private
 
   # Ensure the given times are in the future.

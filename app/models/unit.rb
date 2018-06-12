@@ -3,6 +3,8 @@
 # The Unit model represents a place that can be reserved by a Guest.
 #
 class Unit < ApplicationRecord
+  include Label
+
   belongs_to :owner
   has_many :reservations
   has_many_attached :images
@@ -39,10 +41,6 @@ class Unit < ApplicationRecord
   #
   def self.available(starts, ends)
     where.not(id: Reservation.during(starts, ends).select(:unit_id))
-  end
-
-  def label
-    "Unit No. #{self.id}"
   end
 
 end

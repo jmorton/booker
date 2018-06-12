@@ -4,6 +4,8 @@
 # reserved for a Guest.
 #
 class Reservation < ApplicationRecord
+  include Label
+
   belongs_to :guest,   required: true
   belongs_to :unit,    required: true
 
@@ -35,20 +37,28 @@ class Reservation < ApplicationRecord
     where('start_at > ?', 1.month.from_now)
   }
 
+  def check_in_at
+    Time.use_zone(unit.local_tz) do
+      Chronic.parse("#{start_at} at #{unit.check_in}")
+    end
+  end
+
+  def check_out_at
+    Time.use_zone(unit.local_tz) do
+      Chronic.parse("#{end_at} at #{unit.check_out}")
+    end
+  end
+
   # A relation for getting or counting conflicting reservations for the same unit.
   #
   def conflicts
     if new_record?
-      query = 'unit_id = ? AND tstzrange(start_at, end_at) && tstzrange(?, ?)'
+      query = 'unit_id = ? AND daterange(start_at, end_at) && daterange(?, ?)'
       Reservation.where(query, unit_id, start_at, end_at)
     else
-      query = 'id <> ? AND unit_id = ? AND tstzrange(start_at, end_at) && tstzrange(?, ?)'
+      query = 'id <> ? AND unit_id = ? AND daterange(start_at, end_at) && daterange(?, ?)'
       Reservation.where(query, id, unit_id, start_at, end_at)
     end
-  end
-
-  def to_s
-    "Reservation No. #{id}"
   end
 
   private

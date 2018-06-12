@@ -1,21 +1,24 @@
 <content class="reservation show">
-  
-  <h2><%= @reservation.to_s %></h2>
 
-  <h3>Address</h3>
-  <div data-attr="address"><%= @reservation.unit.address %></div>
+  <h2><%= @reservation.label %> for <%= @reservation.unit.label %></h2>
+
+  <h3>When</h3>
+  <p>
+    <time data-attr="start_at"><%= l(@reservation.check_in_at) %></time> &mdash;
+    <time data-attr="end_at"><%= l(@reservation.check_out_at) %></time>
+  </p>
+
+  <h3>Where</h3>
+  <dl>
+    <dt>Address</dt>
+    <dd><%= @reservation.unit.address %></dd>
+  </dl>
 
   <h3>Guest</h3>
   <div data-attr="address"><%= @reservation.guest&.identity&.uid %></div>
 
   <h3>Owner</h3>
   <div data-attr="owner"><%= @reservation.unit.owner&.identity&.uid %></div>
-
-  <h3>Detail</h3>
-  <p>
-    <time data-attr="start_at"><%= l(@reservation.start_at) %></time> &mdash;
-    <time data-attr="end_at"><%= l(@reservation.end_at) %></time>
-  </p>
 
   <nav>
     <%= link_to "Edit", edit_guest_reservation_path(@reservation), data: { action: :edit } %>

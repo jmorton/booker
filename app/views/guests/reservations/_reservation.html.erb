@@ -1,6 +1,6 @@
 <div class="reservation partial" data-type="reservation">
   <h4>
-    <%= link_to reservation.to_s, guest_reservation_path(reservation), data: { action: :view } %>
+    <%= link_to reservation.label, guest_reservation_path(reservation), data: { action: :view } %>
     for
     <%= link_to reservation.unit.label, guest_unit_path(reservation.unit) %>
   </h4>

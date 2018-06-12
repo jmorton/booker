@@ -1,6 +1,6 @@
 <div>
   <h4>
-    <%= link_to reservation.to_s, owner_reservation_path(reservation) %>
+    <%= link_to reservation.label, owner_reservation_path(reservation) %>
     for
     <%= link_to reservation.unit.label, owner_unit_path(reservation.unit) %>
   </h4>
