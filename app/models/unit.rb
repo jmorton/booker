@@ -42,5 +42,4 @@ class Unit < ApplicationRecord
   def self.available(starts, ends)
     where.not(id: Reservation.during(starts, ends).select(:unit_id))
   end
-
 end

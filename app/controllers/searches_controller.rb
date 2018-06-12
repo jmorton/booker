@@ -3,7 +3,6 @@
 # Resource to help people find nearby available units.
 #
 class SearchesController < ApplicationController
-
   # GET /search
   #
   def show

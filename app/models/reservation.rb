@@ -15,7 +15,7 @@ class Reservation < ApplicationRecord
 
   default_scope { order(:start_at) }
 
-  scope :during, lambda { | starts, ends |
+  scope :during, lambda { |starts, ends|
     query = 'daterange(reservations.start_at, reservations.end_at) && daterange(?, ?)'
     where(query, starts, ends)
   }
