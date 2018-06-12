@@ -64,6 +64,7 @@ group :development do
   gem 'foreman'
   # DEVEX
   gem 'pry-rails'
+  gem 'pry-byebug'
   gem 'rubocop', require: false
 end
 
