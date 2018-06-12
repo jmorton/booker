@@ -23,7 +23,7 @@ Feature: Manage units
      And I click "Manage Your Units"
      And I click "New Unit"
      And I enter this form:
-         | address | Sioux Falls, SD |
+         | unit[address] | Sioux Falls, SD |
      And I click "Create Unit"
     Then I see a message "Unit created"
     When I go to "/owner"
