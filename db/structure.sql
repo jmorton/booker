@@ -283,8 +283,8 @@ CREATE TABLE public.reservations (
     id bigint NOT NULL,
     unit_id bigint NOT NULL,
     guest_id bigint NOT NULL,
-    start_at timestamp with time zone NOT NULL,
-    end_at timestamp with time zone NOT NULL,
+    start_at date NOT NULL,
+    end_at date NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -464,7 +464,7 @@ ALTER TABLE ONLY public.identities
 --
 
 ALTER TABLE ONLY public.reservations
-    ADD CONSTRAINT no_unit_during EXCLUDE USING gist (unit_id WITH =, tstzrange(start_at, end_at) WITH &&);
+    ADD CONSTRAINT no_unit_during EXCLUDE USING gist (unit_id WITH =, daterange(start_at, end_at) WITH &&);
 
 
 --

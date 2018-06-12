@@ -19,6 +19,9 @@ FactoryBot.define do
     association :owner
     sequence(:name)    { |n| "unit_#{n}" }
     sequence(:address) { |n| "400 S 4th Ave #{n}, Sioux Falls, SD 57104" }
+    check_in  '3PM'
+    check_out '11AM'
+    local_tz  'Central Time (US & Canada)'
     longitude -96.720761
     latitude   43.542322
   end

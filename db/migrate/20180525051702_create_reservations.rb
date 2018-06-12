@@ -4,8 +4,8 @@ class CreateReservations < ActiveRecord::Migration[5.2]
     create_table :reservations do |t|
       t.references :unit, null: false
       t.references :guest, null: false
-      t.column     :start_at, 'timestamp with time zone', null: false
-      t.column     :end_at, 'timestamp with time zone', null: false
+      t.date :start_at, null: false
+      t.date :end_at, null: false
       t.timestamps
     end
     add_foreign_key :reservations, :units
