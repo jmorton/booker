@@ -1,0 +1,19 @@
+<div>
+
+  <h2><%= link_to "Image \##{@image.id}" %></h2>
+
+  <h3>Preview</h3>
+  <%= image_tag @image.variant(resize: "200x200") %>
+
+  <h3>Original</h3>
+  <%= link_to @image.filename, @image %>
+
+  <h3>Attributes</h3>
+  <dl>
+  <% @image.blob.attributes.each do |name, value| %>
+    <dt><%= name %></dt>
+    <dd><%= value %></dd>
+  <% end %>
+  </dl>
+
+</div>

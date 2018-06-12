@@ -1,7 +1,14 @@
 <content>
-  <h2>Guest View Unit Detail</h2>
+
+  <h2><%= link_to "Unit \##{@unit.id}", owner_unit_path(@unit) %></h2>
+
   <h3>Address</h3>
   <p><%= @unit.address %></p>
+
+  <h3>Images</h3>
+  <%= render partial: 'images', object: @unit.images %>
+
   <h3>Owner</h3>
   <p><%= @unit.owner&.identity&.uid %></p>
+
 </content>

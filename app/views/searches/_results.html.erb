@@ -1,7 +1,7 @@
 <div id="results">
   <% if search.valid? %>
     <% if search.results.present? %>
-      <ul>
+      <ul class="min">
         <%= render partial: 'unit', collection: search.results %>
       </ul>
     <% else %>

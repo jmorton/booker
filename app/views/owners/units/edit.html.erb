@@ -1,7 +1,15 @@
 <content>
+  <h2><%= link_to "Unit \##{@unit.id}", owner_unit_path(@unit) %></h2>
+
+  <h3>Details</h3>
   <%= form_for [:owner, @unit] do |f| %>
-    <%= render 'shared/errors', object: @unit %>
-    <%= f.text_field :address %>
-    <%= f.submit %>
+    <div><%= render 'shared/errors', object: @unit %></div>
+    <div><%= f.text_field :address %></div>
+    <div><%= f.submit %></div>
   <% end %>
+
+  <h3>Images</h3>
+  <%= render partial: 'images', object: @unit.images %>
+  <%= link_to "Add or remove some images.", owner_unit_images_path(@unit) %>
+
 </content>

@@ -11,6 +11,8 @@ class Reservation < ApplicationRecord
   validates :end_at,   presence: true
   validate  :availability
 
+  default_scope { order(:start_at) }
+
   scope :during, lambda { | starts, ends |
     query = 'tstzrange(reservations.start_at, reservations.end_at) && tstzrange(?, ?)'
     where(query, starts, ends)

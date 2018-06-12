@@ -9,6 +9,10 @@ gem 'turbolinks', '~> 5.1.1'
 
 gem 'webpacker', '~> 3.5'
 
+gem 'image_processing', '~> 1.2'
+
+gem 'ruby-vips', '~> 2.0.12'
+
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 

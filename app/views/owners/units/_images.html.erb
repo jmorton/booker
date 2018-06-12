@@ -1,0 +1,5 @@
+<div class="images">
+  <% for image in images %>
+    <%= image_tag image.variant(resize: "200x200") %>
+  <% end %>
+</div>

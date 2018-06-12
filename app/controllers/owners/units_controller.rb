@@ -67,10 +67,11 @@ module Owners
       respond_to do |format|
         if @unit.valid?
           flash[:notice] = 'Unit updated.'
-          format.html { render :show, status: 200 }
+          format.js   { render :edit, status: 200 }
+          format.html { redirect_back fallback_location: edit_owner_unit_path(@unit) }
           format.json { render json: @unit, status: 200 }
         else
-          format.html { render :edit, status: 400 }
+          format.html { redirect_back fallback_location: edit_owner_unit_path(@unit) }
           format.json { render json: { unit: @unit, errors: @unit.errors }, status: 400 }
         end
       end
@@ -78,16 +79,13 @@ module Owners
 
     private
 
-    def search_params
-      params.fetch(:search, {}).permit(:near, :start_at, :end_at)
-    end
-
     def owner_units
       owner&.units
     end
 
     def unit_params
-      params.fetch(:unit, {}).permit(:id, :address)
+      params.fetch(:unit, {}).permit(:id, :address, images: [])
     end
+
   end
 end

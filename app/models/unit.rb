@@ -5,6 +5,7 @@
 class Unit < ApplicationRecord
   belongs_to :owner
   has_many :reservations
+  has_many_attached :images
 
   # Address is absolutely required and should be unique. Duplicate addresses
   # could lead to duplicate booking!
@@ -31,4 +32,9 @@ class Unit < ApplicationRecord
   def self.available(starts, ends)
     where.not(id: Reservation.during(starts, ends).select(:unit_id))
   end
+
+  def label
+    "Unit No. #{self.id}"
+  end
+
 end

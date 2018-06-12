@@ -1,0 +1,26 @@
+<content id="images">
+
+  <h2><%= link_to "Unit \##{@unit.id}", owner_unit_path(@unit) %></h2>
+
+  <h3>Add Images</h3>
+  <%= form_for [:owner, @unit] do |f| %>
+    <div><%= render 'shared/errors', object: @unit %></div>
+    <div>
+      <%= f.file_field :images, multiple: true, direct_upload: true %>
+      <%= f.submit 'Upload' %>
+    </div>
+  <% end %>
+
+  <ol class="min">
+    <% for image in @images %>
+      <li>
+        <h4><%= image.blob.filename %></h4>
+        <%= image_tag image.variant(resize: "200x200") %>
+        <%= link_to "Original",  image %>
+        <%= link_to "Metadata",  owner_unit_image_path(unit, image) %>
+        <%= link_to "Remove",    owner_unit_image_path(unit, image), method: 'delete', data: { confirm: 'Are you sure?' } %>
+      </li>
+    <% end %>
+  </ol>
+
+</content>

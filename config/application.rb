@@ -42,5 +42,8 @@ module Booker
     config.time_zone = 'UTC'
     config.active_record.default_timezone = :utc
 
+    # We use VIPS for processing image variantes
+    config.active_storage.variant_processor = :vips
+
   end
 end

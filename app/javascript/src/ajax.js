@@ -1,3 +1,5 @@
+console.log("ajax.js");
+
 /*
  * Replace an existing element with a new element, created from an AJAX response.
  *
@@ -13,9 +15,9 @@
  *
  */
 function swapper(it) {
-  // no pushstate...
   try {
     console.log("swapping fragments");
+    // const { response, status } = it.detail
     var text = it.detail[0].responseText;
     var frag = document.createRange().createContextualFragment(text);
     for (let child of frag.children) {

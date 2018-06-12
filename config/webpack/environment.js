@@ -8,6 +8,7 @@ module.exports = environment
 environment.plugins.prepend(
   'Provide',
   new webpack.ProvidePlugin({
-    turbolinks: 'turbolinks'
+    turbolinks: 'turbolinks',
+    activestorage: 'activestorage'
   })
 )

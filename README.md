@@ -17,8 +17,23 @@ have Ruby, Rails, and PostgreSQL installed.
 
 ### 1. Install Dependencies
 
+Booker uses ActiveStorage for images, you will need libvips installed. On MacOS,
+this can be installed using `brew`.
+
+```
+brew install vips
+```
+
+Install the application gems.
+
 ```
 bundle install
+```
+
+Install Javascript dependencies.
+
+```
+yarn install
 ```
 
 ### 2. Configure Environment Values

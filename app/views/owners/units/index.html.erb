@@ -1,11 +1,13 @@
-<nav>
-  <%= link_to "New Unit", new_owner_unit_path %>
-</nav>
-
 <content>
+
+  <h2>Manage Your Units</h2>
+
+  <nav><%= link_to "New Unit", new_owner_unit_path %></nav>
+
   <% if @units.present? %>
-    <%= render partial: 'owners/units/unit', collection: @units %>
+    <ol class="min"><%= render partial: 'unit', collection: @units %></ol>
   <% else %>
     <p>You've not created any units, yet.</p>
   <% end %>
+
 </content>

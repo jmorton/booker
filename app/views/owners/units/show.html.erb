@@ -1,8 +1,17 @@
 <content>
-  <h2>Owner's Unit Detail</h2>
-  <h3>Address</h3>
-  <p><%= @unit.address %></p>
-  <nav>
-    <%= link_to 'Edit', edit_owner_unit_path(@unit) %>
-  </nav>
+
+  <h2><%= link_to @unit.label, guest_unit_path(@unit) %></h2>
+
+  <h3><%= link_to 'Details', edit_owner_unit_path(@unit) %></h3>
+  <%= render partial: 'detail', locals: { unit: @unit } %>
+
+  <h3><%= link_to 'Images', owner_unit_images_path(@unit) %></h3>
+  <%= render partial: 'images', object: @unit.images %>
+
+  <h3>TODO</h3>
+  <ul class="min">
+    <li>Show relevant reservation details?</li>
+    <li>Guest questions and answers?</li>
+    <li>Recent ratings?</li>
+  </ul>
 </content>

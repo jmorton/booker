@@ -1,0 +1,9 @@
+<div class="images">
+  <% if images.present? %>
+    <% for image in images %>
+      <%= image_tag image.variant(resize: "200x200") %>
+    <% end %>
+  <% else %>
+    <p>Sorry, no images available.</p>
+  <% end %>
+</div>

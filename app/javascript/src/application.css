@@ -1,12 +1,17 @@
 body {
   background-color: #eee;
-  font-family: monospace;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 300;
   font-size: 18px;
   margin: 40px;
 }
 
+a {
+  font-weight: 700;
+}
+
 input {
-  font-family: monospace;
+  font-weight: 500;
   font-size: 18px;
   margin: 4px 0 5px 0;
   padding: 9px;
@@ -15,11 +20,35 @@ input {
 }
 
 nav {
+  font-weight: 800;
   font-weight: bold;
   margin: 4px 0 5px 0;
 }
 
-ol, ul, li, p {
-  padding: 3px 0 4px 0;
+h1, h2, h3, h4, h5 {
+  font-weight: 800;
+  padding: 0 0 0 0;
+  margin: 20px 0 3px 0;
+}
+
+ol, ul, li, p, dl, dd, dt {
+  padding: 3px 0 3px 0;
   margin: 0;
+}
+
+ol.min, ul.min {
+  list-style-type: none;
+}
+
+dt {
+  font-weight: bold;
+}
+
+li.unit img {
+  display: inline;
+  vertical-align: top;
+}
+
+li.unit > div {
+  display: inline-block;
 }

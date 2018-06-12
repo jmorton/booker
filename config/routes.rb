@@ -9,7 +9,9 @@ Rails.application.routes.draw do
 
   resource :owner do
     resources :reservations, module: 'owners', only: ['index', 'show']
-    resources :units, module: 'owners'
+    resources :units, module: 'owners' do
+      resources :images
+    end
   end
 
   resource  :search,   only: 'show'

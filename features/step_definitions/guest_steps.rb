@@ -13,7 +13,8 @@ When("I reserve an/another available unit") do
 end
 
 When("I follow the link to reservation details") do
-  find('#reservations div:nth(1) a').click
+  # REVIEW: Pretty brittle selector...
+  find('#reservations div:nth(1) a:nth(1)').click
 end
 
 When("I extend my reservation by {int} day(s)") do |amount|

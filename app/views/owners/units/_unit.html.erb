@@ -1,5 +1,4 @@
-<div data-type="unit">
-  <%= unit.address %>
-  <%= link_to 'View', owner_unit_path(unit) %>
-  <%= link_to 'Edit', edit_owner_unit_path(unit) %>
-</div>
+<li data-type="unit">
+  <h4><%= link_to unit.label, owner_unit_path(unit) %></h4>
+  <p><%= unit.address %></p>
+</li>

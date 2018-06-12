@@ -6,13 +6,13 @@ Feature: Login
   Scenario: Access guest features
      When I go to '/guest'
       And I sign in
-     Then I see "Guest Reservations"
+     Then I see "Your Reservations"
 
   Scenario: Access owner features
      When I go to '/owner'
       And I sign in
-     Then I see "Owner Units"
-      And I see "Owner Reservations"
+     Then I see "Manage Your Units"
+      And I see "Reservations for Your Units"
 
   Scenario: Sign out
     Given I sign out
