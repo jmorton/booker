@@ -4,4 +4,4 @@ en:
       default: "%B %d, %Y"
   time:
     formats:
-      default: "%B %d, %Y %H:%M"
+      default: "%B %d, %Y %H:%M %Z"
