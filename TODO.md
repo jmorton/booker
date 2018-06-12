@@ -1,7 +1,8 @@
 ## Walk 03
 
-* [ ] TOPIC: React, Angular, Vue evaluation
-* [ ] TOPIC: Stronger Reservation Validation
+* [x] TOPIC: React, Angular, Vue evaluation – won't do, not yet.
+* [ ] TOPIC: Stronger Reservation validation
+* [ ] TOPIC: Stronger Unit validation
 
 ## Walk 02
 
