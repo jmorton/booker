@@ -2,6 +2,11 @@
 
   <h2><%= @reservation.label %> for <%= @reservation.unit.label %></h2>
 
+  <nav>
+    <%= link_to "Edit", edit_guest_reservation_path(@reservation), data: { action: :edit } %>
+    <%= link_to "Cancel", guest_reservation_path(@reservation), data: { action: :cancel, confirm: "Are you sure?", method: :delete } %>
+  </nav>
+
   <h3>When</h3>
   <p>
     <time data-attr="start_at"><%= l(@reservation.check_in_at) %></time> &mdash;
@@ -19,10 +24,5 @@
 
   <h3>Owner</h3>
   <div data-attr="owner"><%= @reservation.unit.owner&.identity&.uid %></div>
-
-  <nav>
-    <%= link_to "Edit", edit_guest_reservation_path(@reservation), data: { action: :edit } %>
-    <%= link_to "Cancel", guest_reservation_path(@reservation), data: { action: :cancel, confirm: "Are you sure?", method: :delete } %>
-  </nav>
 
 </content>
