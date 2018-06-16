@@ -73,6 +73,7 @@ group :test do
   gem 'rspec', '~> 3.7'
   gem 'database_cleaner'
   gem 'factory_bot_rails', '~> 4.0'
+  gem 'launchy', '~> 2.1.2'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

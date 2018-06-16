@@ -28,8 +28,13 @@ class Unit < ApplicationRecord
   # into street, city, state, etc...
   #
   geocoded_by :address do |obj, results|
-    obj.location = results
+    if geo = results.first
+      obj.location  = geo
+      obj.latitude  = geo.latitude
+      obj.longitude = geo.longitude
+    end
   end
+
 
   # A relation that selects units with reservations between times t1 and t2.
   #

@@ -9,8 +9,8 @@ Geocoder.configure(lookup: :test)
 # is created using Factories. If you remove it, you will not be able to find
 # nearby units (during search).
 Geocoder::Lookup::Test.set_default_stub([
-  {
-    'coordinates'  => [43.5499749, -96.700327],
+  { 'latitude'     => 43.5499749,
+    'longitude'    => -96.700327,
     'address'      => 'Sioux Falls, SD',
     'state'        => 'South Dakota',
     'state_code'   => 'SD',
@@ -22,7 +22,8 @@ Geocoder::Lookup::Test.set_default_stub([
 Geocoder::Lookup::Test.add_stub(
   "Sioux Falls, SD", [
   {
-    'coordinates'  => [43.5499749, -96.700327],
+    'latitude'     => 43.5499749,
+    'longitude'    => -96.700327,
     'address'      => 'Sioux Falls, SD, USA',
     'state'        => 'South Dakota',
     'state_code'   => 'SD',

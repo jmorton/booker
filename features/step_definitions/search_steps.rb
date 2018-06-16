@@ -1,7 +1,7 @@
 When("I search for units near {string} available {string}") do |location, date|
   step 'I go to "/search"'
-  start_at = Chronic.parse(date)
-  end_at = start_at + 1.day
+  start_at = Chronic.parse(date).to_date
+  end_at   = start_at + 1
   page.fill_in 'near',     with: location
   page.fill_in 'start_at', with: start_at.iso8601
   page.fill_in 'end_at',   with: end_at.iso8601
@@ -25,9 +25,9 @@ Then("I see a search form") do
 end
 
 Then("I see {int} units") do |amount|
-  expect(page).to have_selector('#results li', count: amount)
+  expect(page).to have_selector('.unit', count: amount)
 end
 
 Then("I see {int} available units") do |amount|
-  expect(page).to have_selector('#results li', count: amount)
+  expect(page).to have_selector('.unit', count: amount)
 end

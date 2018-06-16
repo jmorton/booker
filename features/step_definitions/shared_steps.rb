@@ -55,6 +55,10 @@ Then("I see exactly {int} {string}") do |quantity, thing|
   end
 end
 
-Then("dump the page") do
-  puts page.body
+After do |scenario|
+  begin
+    save_and_open_page if scenario.failed?
+  rescue RuntimeError
+    puts "could not save and open page, is launchy configured?"
+  end
 end

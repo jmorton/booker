@@ -22,8 +22,16 @@ class Search
 
   define_model_callbacks :validation
 
+  def start_at
+    super&.to_date
+  end
+
   def start_at=(value)
     super Chronic.parse value
+  end
+
+  def end_at
+    super&.to_date
   end
 
   def end_at=(value)
@@ -52,7 +60,7 @@ class Search
   def duration
     # REVIEW: buried configuration? (1 day)
     return if start_at.blank? || end_at.blank?
-    return if (end_at - start_at) >= 1.day
+    return if (end_at - start_at) >= 1
     errors.add(:base, 'start and end difference must be one or more days')
   end
 end
