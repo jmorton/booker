@@ -14,6 +14,18 @@ Install an arbitrary version of Ruby using `apt` then install `rbenv` and the `r
 
 ### Default Ruby
 
+This install Ruby along with several dependencies typically needed when building Rails applications.
+
+| Library          | What's it for?                            |
+| =================| ========================================= |
+| buildessential   | Compiling other libraries                 |
+| libpq-dev        | PostgreSQL communication                  |
+| libssl-dev       | Encryption                                |
+| libreadline-dev  | Command line history                      |
+| libvips-dev      | Image manipulation                        |
+| zlib1g-dev       | Compression                               |
+
+
 ```
 sudo apt update
 sudo apt install -y ruby build-essential libssl-dev libreadline-dev zlib1g-dev libvips-dev libpq-dev
@@ -98,7 +110,7 @@ Install PostgreSQL 10.x
 
 ```
 curl -sS https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-echo "deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main" | sudo tee /etc/apt/sources.list.d/pgdg.list
+echo "deb https://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main" | sudo tee /etc/apt/sources.list.d/pgdg.list
 apt install -y postgresql-10
 ```
 
