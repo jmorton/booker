@@ -10,67 +10,16 @@ for anything (as far as I know) but it should help you answer a variety of quest
 about how to build something similar. It's also a pretty good way for you to
 figure out if I actually know how to build things.
 
+Learn more about the [data model](docs/data_model.md) and [interesting problems](docs/dragons.md).
+
+
 ## Setup
 
-There are five steps to setup a local development environment. I assume you already
-have Ruby, Rails, and PostgreSQL installed.
-
-### 1. Install Dependencies
-
-Booker uses ActiveStorage for images, you will need libvips installed. On MacOS,
-this can be installed using `brew`.
-
-```
-brew install vips
-```
-
-Install the application gems.
-
-```
-bundle install
-```
-
-Install Javascript dependencies.
-
-```
-yarn install
-```
-
-### 2. Configure Environment Values
-
-This app uses `.env` files to configure development and test environments. Create
-a copy like this:
-
-```
-cp .env.example .env.development
-```
-
-### 3. Initialize PostgreSQL
-
-If you aren't running PostgreSQL already, you can initialize an instance that will
-be stored in the project (but ignored by git).
-
-```
-mkdir db/pg
-initdb --pgdata db/pg
-```
-
-### 4. Start Everything
-
-```
-bundle exec foreman start
-```
-
-### 5. Initialize Booker's Schema
-
-```
-bin/rails db:setup
-```
-
+See our [Ubuntu Setup](docs/setup_ubuntu.md) documentation.
 
 ## Tests
 
-Tests are run like this:
+Basic tests are run like this:
 
 ```
 rake tests
@@ -86,84 +35,13 @@ Traditional tests are used to build up low level capabilities. Cucumber features
 are present so that business-type people can see how things are going at a high
 level.
 
-## REST API
+## Development Server
 
-### Get a List of Available near a location during a time interval
-
-```
-  GET /units?where=Sioux Falls, SD&start_at=2018-07-01&end_at=2018-08-01
-```
-
-This will retrieve a list of units that have no reservations during the given time.
-
-
-### Create a Reservation
+Start the development server using Foreman.
 
 ```
-  POST /reservation
-  guest_id: 1
-  unit_id:  1
-  start:    2018-05-25
-  end:      2018-05-27
+bundle exec foreman start
 ```
-
-This will create a reservation, if and only if the unit is not already reserved
-for an overlapping period of time.
-
-
-### View a Reservation's Details
-
-```
-  GET /reservation/:id
-```
-
-
-### Modify a Reservation
-
-```
-  PUT /reservation/:id
-  guest_id: 1
-  unit_id:  2
-  start:    2018-05-26
-  end:      2018-05-29
-```
-
-This will change a reservation; history is preserved in the `audits` table.
-
-
-### Cancel a Reservation
-
-```
-  DELETE /reservation/:id
-```
-
-This will remove a reservation; history is preserved in the `audits` table.
-
-
-## Data Model
-
-The system exposes data about Guests, Units, and Reservations.
-
-### Guest
-
-Someone that wants to occupy a unit for a specific period of time.
-
-### Unit
-
-A place that can be occupied for various intervals of time by different guests.
-
-Units are geocoded whenever their address is changed in order to support location
-based queries.
-
-### Reservation
-
-A time-interval exclusive relationship between guests and units. A valid guest, unit,
-and duration are required.
-
-### Audits
-
-The system keeps old versions of entities to assist system operators with insight
-about what people are doing and to help resolve potential disputes.
 
 ## OmniAuth Provider Configuration
 
@@ -213,45 +91,6 @@ You can start your server in SSL mode; be sure to set your hostname properly!
 ```
 rails: rails server --binding "ssl://dev.booker.jonmorton.me?key=$PWD/tmp/dev.key&cert=$PWD/tmp/dev.crt"
 ```
-
-## There Be Dragons
-
-This app started with a bit of a flurry, so it's important to keep track of some
-potential issues, even if they are a bit ambiguous...
-
-### Time Zones, Check-In, Check-Out
-
-When reserving a Unit it will be important to figure out and enforce the actual
-times of day that a unit is reserved for a Guest. This time probably won't be
-user specified, and it definitely needs to take into account the timezone of the
-unit.
-
-It might be wise to ignore any time value more granular than a day, provided by a
-user, relying instead on a property of each Unit to determine the start and end time.
-
-### Reservation Constraints
-
-* Limit cancellation to a predefined time before the reservation begins.
-* Limit modification, especially after a reservation has finished.
-* Enforce minimum and maximum duration of a reservation. (e.g. 30-90 days)
-
-### Permissions
-
-This app does not enforce any permission about who can create, modify, or delete
-reservations.
-
-Given that this is an API, we'll probably adopt a gem that supports JWT.
-
-### Auditing
-
-This app preserves historical information in the `audits` table. I need to make
-sure that this can be a) extracted or b) queried by the appropriate users.
-
-### Test Data
-
-Test data is generated using Factory Bot. Fixtures can become quite unwieldy,
-so producing what is needed on-the-fly seems smart.
-
 
 ## License
 
