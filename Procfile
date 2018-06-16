@@ -1,2 +1,4 @@
-postgres: postgres -D db/pg
-rails: rails server
+app: bin/rails server
+wps: bin/webpack-dev-server
+wpw: bin/webpack --watch --colors --progress
+
