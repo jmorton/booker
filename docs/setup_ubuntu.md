@@ -17,14 +17,13 @@ Install an arbitrary version of Ruby using `apt` then install `rbenv` and the `r
 This install Ruby along with several dependencies typically needed when building Rails applications.
 
 | Library          | What's it for?                            |
-| =================| ========================================= |
+| ---------------- | ----------------------------------------- |
 | buildessential   | Compiling other libraries                 |
 | libpq-dev        | PostgreSQL communication                  |
 | libssl-dev       | Encryption                                |
 | libreadline-dev  | Command line history                      |
 | libvips-dev      | Image manipulation                        |
 | zlib1g-dev       | Compression                               |
-
 
 ```
 sudo apt update
