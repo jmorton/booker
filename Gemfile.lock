@@ -331,7 +331,6 @@ DEPENDENCIES
   rails (~> 5.2.0)
   rspec (~> 3.7)
   rubocop
-  ruby-vips (~> 2.0.12)
   spring
   spring-watcher-listen (~> 2.0.0)
   turbolinks (~> 5.1.1)

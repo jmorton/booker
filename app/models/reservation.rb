@@ -71,6 +71,6 @@ class Reservation < ApplicationRecord
   #
   def availability
     return unless conflicts.count.positive?
-    errors.add(:start_at, 'unit not available for given dates')
+    errors.add(:base, 'unit not available between given dates')
   end
 end

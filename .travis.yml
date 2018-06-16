@@ -1,26 +1,35 @@
 language: ruby
 
+cache:
+  - bundler
+  - yarn
+
 dist: trusty
 
 addons:
-  postgresql: '10.4'
+  postgresql: "10"
+  apt:
+    packages:
+    - postgresql-10
+    - postgresql-client-10
+
+env:
+  global:
+  - PGPORT=5433
 
 services:
   - postgresql
+  - memcached
+  - redis-server
 
-before_install:
-  - echo "Installing libvips..."
-  - sudo apt-get update
-  - sudo apt-get install -y libvips libvips-dev
-  - echo "Updating gems..."
-  - gem update --system
+before_script:
+  - bin/rails db:create
+  - bin/rails db:migrate RAILS_ENV=test
+  - bin/rails webpacker:yarn_install
+  - bin/rails webpacker:compile
 
 script:
-  - bundle exec rails db:migrate RAILS_ENV=test
   - bin/rails test
   - bin/rails cucumber
-
-services:
-  - postgresql
 
 bundler_args: --without production

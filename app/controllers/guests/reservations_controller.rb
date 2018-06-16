@@ -52,6 +52,7 @@ module Guests
           format.html { redirect_to guest_reservation_path(@reservation) }
           format.json { render json: @reservation, status: 200 }
         else
+          flash[:alert] = 'Reservation could not be created.'
           format.html { render :new }
           format.json { render json: @reservation.errors.full_messages, status: 400 }
         end
@@ -62,13 +63,13 @@ module Guests
     #
     def update
       @reservation = guest_reservations.find(params[:id])
-      @reservation.update(reservation_params)
       respond_to do |format|
-        if @reservation.valid?
+        if @reservation.update(reservation_params)
           flash[:notice] = 'Reservation updated.'
           format.html { render :show, status: 200 }
           format.json { render json: @reservation, status: 200 }
         else
+          flash[:alert] = 'Reservation could not be updated.'
           format.html { render :edit, status: 400 }
           format.json { render json: { reservation: @reservation, errors: @reservation.errors }, status: 400 }
         end
@@ -85,6 +86,7 @@ module Guests
           format.html { redirect_to guest_reservations_path }
           format.json { render status: 204 }
         else
+          flash[:alert] = 'Reservation could not be cancelled.'
           format.html { redirect_to :back }
           format.json { render json: nil, status: 400 }
         end
