@@ -44,7 +44,7 @@ module Owners
           format.html { redirect_to owner_unit_path(@unit) }
           format.json { render json: @unit, status: 200 }
         else
-          flash[:error] = 'Unit could not be created.'
+          flash[:alert] = 'Unit could not be created.'
           format.html { render :new, status: 400 }
           format.json { render json: { unit: @unit, errors: @unit.errors }, status: 400 }
         end
@@ -70,7 +70,7 @@ module Owners
           format.html { redirect_back fallback_location: edit_owner_unit_path(@unit) }
           format.json { render json: @unit, status: 200 }
         else
-          flash[:error] = 'Unit could not be updated.'
+          flash[:alert] = 'Unit could not be updated.'
           format.html { redirect_back fallback_location: edit_owner_unit_path(@unit) }
           format.json { render json: { unit: @unit, errors: @unit.errors }, status: 400 }
         end

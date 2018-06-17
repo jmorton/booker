@@ -26,7 +26,7 @@ module Owners
     def destroy
       respond_to do |format|
         image.destroy!
-        flash[:message] = 'Image deleted.'
+        flash[:notice] = 'Image deleted.'
         format.js   { render status: 200 }
         format.html { redirect_back fallback_location: edit_owner_unit_path(unit) }
       end
