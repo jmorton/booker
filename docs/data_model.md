@@ -8,11 +8,11 @@ Someone that wants to occupy a unit for a specific period of time.
 
 ## Owner
 
-Someone that has a place for guests to reserver.
+Someone that has a place for guests to reserve.
 
 ## Identity
 
-Data about an authentication mechanism used by a person visiting the site. This separates authentication related data from everything else.
+Data about an authenticated visitor of the site. This provides separation between data about a person and data about what has happened. The primary motivation for this separation is to demonstrate how an app can forget who did something without forgetting that something happened.
 
 ## Unit
 
@@ -22,7 +22,7 @@ Units are geocoded whenever their address is changed in order to support locatio
 
 ## Reservation
 
-A date-interval exclusive relationship between guests and units. A valid guest, unit, and duration are required.
+A date-interval exclusive relationship between a guest and a unit. A valid guest, unit, and duration are required.
 
 ## Audits
 
