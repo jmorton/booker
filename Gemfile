@@ -65,6 +65,7 @@ group :development do
   gem 'pry-rails'
   gem 'pry-byebug'
   gem 'rubocop', require: false
+  gem 'brakeman'
 end
 
 group :test do
