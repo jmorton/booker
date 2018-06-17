@@ -1,10 +1,31 @@
 <content>
   <h2>New Unit</h2>
   <%= form_for [:owner, @unit] do |f| %>
-    <div><%= render 'shared/errors', object: @unit %></div>
-    <div><%= f.text_field :address %></div>
-    <div><%= f.text_field :check_in %></div>
-    <div><%= f.text_field :check_out %></div>
-    <div><%= f.time_zone_select :local_tz, ActiveSupport::TimeZone.us_zones, include_blank: true %></div>
-    <div><%= f.submit %></div>  <% end %>
+    <div>
+      <%= render 'shared/errors', object: @unit %>
+    </div>
+    <div>
+      <%= f.label :address %>
+      <%= f.text_field :address %>
+    </div>
+    <div>
+      <%= f.label :check_in %>
+      <%= f.text_field :check_in %>
+    </div>
+    <div>
+      <%= f.label :check_out %>
+      <%= f.text_field :check_out %>
+    </div>
+    <div>
+      <%= f.label :price %>
+      <%= f.text_field :price %>
+    </div>
+    <div>
+      <%= f.label :local_tz %>
+      <%= f.time_zone_select :local_tz, ActiveSupport::TimeZone.us_zones, include_blank: true %>
+    </div>
+    <div>
+      <%= f.submit %>
+    </div>
+  <% end %>
 </content>

@@ -19,6 +19,7 @@ class Unit < ApplicationRecord
   # reservations.
   #
   validates :address, presence: true, uniqueness: true
+  validates :price, presence: true
 
   # Minimize geocoder hits by only geocoding when possible and needed.
   #

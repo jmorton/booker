@@ -67,7 +67,6 @@ module Owners
       respond_to do |format|
         if @unit.update(unit_params)
           flash[:notice] = 'Unit updated.'
-          format.js   { render :edit, status: 200 }
           format.html { redirect_back fallback_location: edit_owner_unit_path(@unit) }
           format.json { render json: @unit, status: 200 }
         else
@@ -85,7 +84,7 @@ module Owners
     end
 
     def unit_params
-      params.fetch(:unit, {}).permit(:id, :address, :check_in, :check_out, :local_tz, images: [])
+      params.fetch(:unit, {}).permit(:id, :address, :check_in, :check_out, :price, :local_tz, images: [])
     end
   end
 end

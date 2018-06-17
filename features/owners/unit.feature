@@ -17,13 +17,17 @@ Feature: Manage units
      And I click "New Unit"
      And I click "Create Unit"
     Then I see an error "Address can't be blank"
+     And I see an error "Price can't be blank"
 
   Scenario: Creating a unit in Sioux Falls, SD
     When I go to "/owner"
      And I click "Manage Your Units"
      And I click "New Unit"
      And I enter this form:
-         | unit[address] | Sioux Falls, SD |
+         | unit[address]   | Sioux Falls, SD |
+         | unit[price]     | $100            |
+         | unit[check_in]  | 3pm             |
+         | unit[check_out] | 11am            |
      And I click "Create Unit"
     Then I see a message "Unit created"
     When I go to "/owner"

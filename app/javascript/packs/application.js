@@ -2,6 +2,7 @@
 
 import '../src/application.css'
 import '../src/upload.css'
+import '../src/form.css'
 
 import Rails from 'rails-ujs';
 Rails.start();
