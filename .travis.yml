@@ -31,5 +31,7 @@ before_script:
 script:
   - bin/rails test
   - bin/rails cucumber
+  - bundle exec rubocop
+  - bundle exec brakeman
 
 bundler_args: --without production
