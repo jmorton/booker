@@ -10,8 +10,8 @@ for anything (as far as I know) but it should help you answer a variety of quest
 about how to build something similar. It's also a pretty good way for you to
 figure out if I actually know how to build things.
 
-Learn more about the [data model](docs/data_model.md) and [interesting problems](docs/dragons.md).
-
+Learn more about the [data model](docs/data_model.md) and [interesting problems](docs/think.md)
+encountered while building this system.
 
 ## Setup
 
@@ -19,7 +19,7 @@ See our [Ubuntu Setup](docs/setup_ubuntu.md) documentation.
 
 ## Tests
 
-Basic tests are run like this:
+Basic tests are run like this:n
 
 ```
 rake tests
