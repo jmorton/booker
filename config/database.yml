@@ -13,9 +13,7 @@ test: &test
 
 production:
   <<: *default
-  database: booker_production
-  username: booker
+  host:     <%= ENV['BOOKER_DATABASE_HOST'] %>
+  database: <%= ENV['BOOKER_DATABASE_NAME'] %>
+  username: <%= ENV['BOOKER_DATABASE_USERNAME'] %>
   password: <%= ENV['BOOKER_DATABASE_PASSWORD'] %>
-
-cucumber:
-  <<: *test
