@@ -1,8 +1,6 @@
 <content>
   <h2><%= link_to "Unit \##{@unit.id}", owner_unit_path(@unit) %></h2>
 
-  <%= @unit.errors.full_messages %>
-
   <h3>Details</h3>
   <%= form_for [:owner, @unit] do |f| %>
     <div>
