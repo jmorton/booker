@@ -7,7 +7,6 @@ if [ -f /booker/tmp/pids/server.pid ]; then
   rm /booker/tmp/pids/server.pid
 fi
 
-bundle exec rake db:create  2>/dev/null
-bundle exec rake db:migrate 2>/dev/null || bundle exec rake db:setup
-
+bundle exec rake db:create
+bundle exec rake db:migrate || bundle exec rake db:setup
 exec bundle exec "$@"

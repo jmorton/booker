@@ -2,11 +2,21 @@ FROM ruby:2.5
 MAINTAINER Jonathan Morton
 
 ENV RAILS_ENV production
-
 ENV BOOKER_DATABASE_HOST     database
 ENV BOOKER_DATABASE_NAME     booker
 ENV BOOKER_DATABASE_USERNAME booker
 ENV BOOKER_DATABASE_PASSWORD booker
+ENV GOOGLE_CLIENT_ID         none
+ENV GOOGLE_CLIENT_SECRET     none
+ENV GITHUB_CLIENT_ID         none
+ENV GITHUB_SECRET            none
+ENV TWITTER_CLIENT_ID        none
+ENV TWITTER_SECRET           none
+ENV DISCORD_CLIENT_ID        none
+ENV DISCORD_CLIENT_SECRET    none
+ENV RAILS_LOG_TO_STDOUT      none
+ENV RAILS_SERVE_STATIC_FILES none
+ENV SECRET_KEY_BASE          none
 
 EXPOSE 3000
 
@@ -29,12 +39,12 @@ RUN yarn install
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! #
 # !!  WARNING: DO *NOT* INCLUDE config/master.key  !! #
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! #
-
-# Why? Because...
 #
-# If you include the master key in the Docker image and
-# then push the image to a public place, you're doomed.
+#     The master.key must remain secret. Including
+#     secrets in an image is risky because pushing
+#     to a public repository is easy.
 #
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! #
 
 ADD . .
 RUN rm --force config/master.key

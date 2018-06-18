@@ -16,7 +16,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   if ENV['GITHUB_CLIENT_ID'].present?
     provider :github,
              ENV['GITHUB_CLIENT_ID'],
-             ENV['GITHUB_SECRET'],
+             ENV['GITHUB_CLIENT_SECRET'],
              scope: 'user'
   else
     puts "skipping GitHub OmniAuth provider"
@@ -25,7 +25,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   if ENV['TWITTER_CLIENT_ID'].present?
     provider :twitter,
              ENV['TWITTER_CLIENT_ID'],
-             ENV['TWITTER_SECRET']
+             ENV['TWITTER_CLIENT_SECRET']
   else
     puts "skipping Twitter OmniAuth provider"
   end
