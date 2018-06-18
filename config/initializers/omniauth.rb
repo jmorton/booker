@@ -9,6 +9,8 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     provider :google_oauth2,
              ENV['GOOGLE_CLIENT_ID'],
              ENV['GOOGLE_CLIENT_SECRET']
+  else
+    puts "skipping Google OmniAuth provider"
   end
 
   if ENV['GITHUB_CLIENT_ID'].present?
@@ -16,12 +18,16 @@ Rails.application.config.middleware.use OmniAuth::Builder do
              ENV['GITHUB_CLIENT_ID'],
              ENV['GITHUB_SECRET'],
              scope: 'user'
+  else
+    puts "skipping GitHub OmniAuth provider"
   end
 
   if ENV['TWITTER_CLIENT_ID'].present?
     provider :twitter,
              ENV['TWITTER_CLIENT_ID'],
              ENV['TWITTER_SECRET']
+  else
+    puts "skipping Twitter OmniAuth provider"
   end
 
   if ENV['DISCORD_CLIENT_ID'].present?
@@ -29,6 +35,8 @@ Rails.application.config.middleware.use OmniAuth::Builder do
              ENV['DISCORD_CLIENT_ID'],
              ENV['DISCORD_CLIENT_SECRET'],
              scope: 'email identify'
+  else
+    puts "skipping Discord OmniAuth provider"
   end
 
   # This provider should almost definitely not be available in production.

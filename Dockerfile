@@ -18,25 +18,31 @@ RUN mkdir /booker
 
 WORKDIR /booker
 
-# Might it make better sense to selectively copy files?
-#
-# ADD  Gemfile*      /booker/
-# ADD  package.json  /booker/
-# ADD  yarn.lock     /booker/
-# ADD  config.ru     /booker/
-# ADD  app           /booker/
-# ADD  config        /booker/
-# ADD  db            /booker/
-# ADD  bin           /booker/
-# ADD  public        /booker/
-
-
-ADD Gemfile .
-ADD Gemfile.lock .
+ADD Gemfile       .
+ADD Gemfile.lock  .
 RUN bundle install --without development test
 
-ADD . .
+ADD package.json  .
+ADD yarn.lock     .
 RUN yarn install
-RUN bundle exec rails assets:precompile
+
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! #
+# !!  WARNING: DO *NOT* INCLUDE config/master.key  !! #
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! #
+
+# Why? Because...
+#
+# If you include the master key in the Docker image and
+# then push the image to a public place, you're doomed.
+#
+
+ADD . .
+RUN rm --force config/master.key
+
+#
+# Precompile JavaScript and CSS.
+#
+
+RUN bundle exec rails RAILS_ENV=production SECRET_KEY_BASE=didyoureallythinkitdbethateasy assets:precompile
 
 CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
