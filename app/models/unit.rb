@@ -9,8 +9,6 @@ class Unit < ApplicationRecord
   has_many :reservations
   has_many_attached :images
 
-  serialize :location
-
   serialize :detail
   store_accessor :detail, :price, :check_in, :check_out, :local_tz
 
@@ -28,14 +26,7 @@ class Unit < ApplicationRecord
   # Address contains everything needed to get a lat/lon; it has not been decomposed
   # into street, city, state, etc...
   #
-  geocoded_by :address do |obj, results|
-    geo = results.first
-    if geo.present?
-      obj.location  = geo
-      obj.latitude  = geo.latitude
-      obj.longitude = geo.longitude
-    end
-  end
+  geocoded_by :address
 
   # A relation that selects units with reservations between times t1 and t2.
   #

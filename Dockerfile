@@ -1,23 +1,6 @@
 FROM ruby:2.5
 MAINTAINER Jonathan Morton
 
-ENV RAILS_ENV production
-ENV BOOKER_DATABASE_HOST     database
-ENV BOOKER_DATABASE_NAME     booker
-ENV BOOKER_DATABASE_USERNAME booker
-ENV BOOKER_DATABASE_PASSWORD booker
-ENV GOOGLE_CLIENT_ID         none
-ENV GOOGLE_CLIENT_SECRET     none
-ENV GITHUB_CLIENT_ID         none
-ENV GITHUB_SECRET            none
-ENV TWITTER_CLIENT_ID        none
-ENV TWITTER_SECRET           none
-ENV DISCORD_CLIENT_ID        none
-ENV DISCORD_CLIENT_SECRET    none
-ENV RAILS_LOG_TO_STDOUT      none
-ENV RAILS_SERVE_STATIC_FILES none
-ENV SECRET_KEY_BASE          none
-
 EXPOSE 3000
 
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
@@ -54,5 +37,34 @@ RUN rm --force config/master.key
 #
 
 RUN bundle exec rails RAILS_ENV=production SECRET_KEY_BASE=didyoureallythinkitdbethateasy assets:precompile
+
+#
+# Configure the app with environment variables.
+#
+
+ENV SECRET_KEY_BASE=                \
+    RAILS_ENV=production            \
+    RAILS_LOG_TO_STDOUT=true        \
+    RAILS_SERVE_STATIC_FILES=true   \
+
+ENV BOOKER_DATABASE_HOST=       \
+    BOOKER_DATABASE_NAME=       \
+    BOOKER_DATABASE_USERNAME=   \
+    BOOKER_DATABASE_PASSWORD=
+
+ENV DISCORD_CLIENT_ID=          \
+    DISCORD_CLIENT_SECRET=      \
+    GOOGLE_CLIENT_ID=           \
+    GOOGLE_CLIENT_SECRET=       \
+    GITHUB_CLIENT_ID=           \
+    GITHUB_SECRET=              \
+    TWITTER_CLIENT_ID=          \
+    TWITTER_SECRET=
+
+ENV SPACES_KEY=         \
+    SPACES_SECRET=      \
+    SPACES_REGION=      \
+    SPACES_BUCKET=      \
+    SPACES_ENDPOINT=
 
 CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]

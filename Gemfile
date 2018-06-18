@@ -11,6 +11,8 @@ gem 'webpacker', '~> 3.5'
 
 gem 'image_processing', '~> 1.2'
 
+gem 'aws-sdk-s3', '~> 1'
+
 # Use postgresql as the database for Active Record
 
 gem 'pg', '>= 0.18', '< 2.0'
