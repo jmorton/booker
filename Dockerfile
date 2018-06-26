@@ -29,23 +29,33 @@ RUN yarn install
 #
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! #
 
-ADD . .
+COPY app       ./app
+COPY bin       ./bin
+COPY config    ./config
+COPY config.ru ./config.ru
+COPY db        ./db
+COPY Rakefile  ./Rakefile
+
+COPY .ruby-version  .
+COPY .postcssrc.yml .
+COPY .babelrc       .
+
 RUN rm --force config/master.key
 
 #
 # Precompile JavaScript and CSS.
 #
 
-RUN bundle exec rails RAILS_ENV=production SECRET_KEY_BASE=didyoureallythinkitdbethateasy assets:precompile
+RUN RAILS_ENV=production SECRET_KEY_BASE=secret bundle exec rails assets:precompile
 
 #
 # Configure the app with environment variables.
 #
 
-ENV SECRET_KEY_BASE=                \
+ENV SECRET_KEY_BASE=secret          \
     RAILS_ENV=production            \
     RAILS_LOG_TO_STDOUT=true        \
-    RAILS_SERVE_STATIC_FILES=true   \
+    RAILS_SERVE_STATIC_FILES=true
 
 ENV BOOKER_DATABASE_HOST=       \
     BOOKER_DATABASE_NAME=       \
