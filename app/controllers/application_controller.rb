@@ -5,7 +5,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   include Exceptions
-  force_ssl if: -> { Rails.env.production? }
 
   def pick
     if session[:user].present?
